@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 蘇澳漁悅季｜沉浸式主題視覺</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --deep-blue:   #1B3045;
+      --ocean-blue:  #1E3A5F;
+      --orange:      #E86D2D;
+      --orange-lt:   #F5A06A;
+      --cream:       #F5EDD6;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--deep-blue);
+      color: var(--cream);
+      font-family: 'Noto Sans TC', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: .35;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+    }
+
+    /* ── SCROLL PROGRESS ── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--orange), var(--orange-lt));
+      z-index: 9999;
+      box-shadow: 0 0 10px rgba(232,109,45,.6);
+      transition: width .08s linear;
+    }
+
+    /* ── LOADING SCREEN ── */
+    #loading {
+      position: fixed; inset: 0; z-index: 1000;
+      background: var(--deep-blue);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 24px;
+      transition: opacity .9s ease, visibility .9s ease;
+    }
+    #loading.out { opacity: 0; visibility: hidden; }
+
+    .ld-logo {
+      width: 110px; height: 110px; border-radius: 50%;
+      border: 1.5px solid rgba(232,109,45,.5);
+      box-shadow: 0 0 0 0 rgba(232,109,45,.3);
+      animation: ldPulse 2s ease-in-out infinite;
+    }
+    @keyframes ldPulse {
+      0%,100% { box-shadow: 0 0 30px 0 rgba(232,109,45,.3); }
+      50%      { box-shadow: 0 0 70px 20px rgba(232,109,45,.15); }
+    }
+
+    .ld-text {
+      font-size: 12px; letter-spacing: 5px;
+      color: rgba(245,237,214,.5);
+    }
+    .ld-bar-wrap {
+      width: 200px; height: 2px;
+      background: rgba(255,255,255,.08);
+      border-radius: 2px; overflow: hidden;
+    }
+    .ld-bar {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--orange), var(--orange-lt));
+      border-radius: 2px;
+      transition: width .12s ease;
+    }
+
+    /* ── HERO: STICKY SCROLL CONTAINER ── */
+    #scroll-zone {
+      height: 520vh;
+      position: relative;
+    }
+    #sticky-hero {
+      position: sticky; top: 0;
+      width: 100%; height: 100vh;
+      overflow: hidden;
+    }
+
+    #frame-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* Layered depth overlays */
+    #depth-top {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(27,48,69,.85) 0%,
+          rgba(27,48,69,.2) 18%,
+          transparent 40%,
+          transparent 70%,
+          rgba(27,48,69,.4) 88%,
+          rgba(27,48,69,.9) 100%
+        ),
+        linear-gradient(to right,
+          rgba(27,48,69,.35) 0%,
+          transparent 15%,
+          transparent 85%,
+          rgba(27,48,69,.35) 100%
+        );
+      pointer-events: none;
+    }
+
+    /* Glow bloom that pulses with the fish */
+    #glow-bloom {
+      position: absolute; inset: 0;
+      background: radial-gradient(
+        ellipse 55% 55% at 50% 55%,
+        rgba(232,109,45,.12) 0%,
+        transparent 70%
+      );
+      pointer-events: none;
+      transition: opacity .4s ease;
+    }
+
+    /* ── NAV ── */
+    #nav {
+      position: absolute; top: 0; left: 0; right: 0;
+      padding: 36px 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 20;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .nav-logo {
+      width: 50px; height: 50px; border-radius: 50%;
+      border: 1.5px solid rgba(232,109,45,.55);
+      box-shadow: 0 0 20px rgba(232,109,45,.2);
+      transition: box-shadow .4s;
+    }
+    .nav-logo:hover {
+      box-shadow: 0 0 40px rgba(232,109,45,.5);
+    }
+    .nav-name {
+      font-size: 12px; letter-spacing: 4px;
+      color: rgba(245,237,214,.6); font-weight: 400;
+    }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px; letter-spacing: 3px;
+      color: rgba(245,237,214,.55); text-decoration: none;
+      transition: color .3s;
+    }
+    .nav-links a:hover { color: var(--orange-lt); }
+
+    /* ── HERO TITLE BLOCK ── */
+    #hero-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0 52px 56px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end; gap: 32px;
+      z-index: 20;
+    }
+
+    .hero-kicker {
+      font-size: 11px; letter-spacing: 7px;
+      color: var(--orange); font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .hero-h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(64px, 9vw, 108px);
+      font-weight: 900;
+      line-height: .95;
+      color: var(--cream);
+      text-shadow: 0 4px 60px rgba(232,109,45,.35);
+      letter-spacing: -3px;
+    }
+    .hero-h1 em { font-style: normal; color: var(--orange); }
+    .hero-sub {
+      margin-top: 18px;
+      font-size: 15px; letter-spacing: 4px;
+      color: rgba(245,237,214,.6); font-weight: 400;
+    }
+
+    .hero-tags {
+      display: flex; flex-direction: column;
+      align-items: flex-end; gap: 10px;
+    }
+    .tag {
+      padding: 9px 22px; border-radius: 100px;
+      font-size: 12px; letter-spacing: 3px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .tag-orange {
+      background: rgba(232,109,45,.18);
+      border: 1px solid rgba(232,109,45,.45);
+      color: var(--orange-lt);
+      box-shadow: 0 0 24px rgba(232,109,45,.12), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .tag-blue {
+      background: rgba(27,48,69,.65);
+      border: 1px solid rgba(232,109,45,.22);
+      color: rgba(245,237,214,.65);
+    }
+
+    /* Scroll cue */
+    #scroll-cue {
+      position: absolute; bottom: 30px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      z-index: 20; pointer-events: none;
+      animation: cueBounce 2.2s ease-in-out infinite;
+    }
+    #scroll-cue span {
+      font-size: 10px; letter-spacing: 4px;
+      color: rgba(245,237,214,.4);
+    }
+    .cue-line {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, rgba(232,109,45,.7), transparent);
+    }
+    @keyframes cueBounce {
+      0%,100% { opacity: .4; transform: translateX(-50%) translateY(0); }
+      50%      { opacity: .9; transform: translateX(-50%) translateY(7px); }
+    }
+
+    /* ── MAIN CONTENT BELOW HERO ── */
+    #content { position: relative; background: var(--deep-blue); }
+
+    .jp-rule {
+      height: 1px; margin: 0 52px;
+      background: linear-gradient(to right, transparent, rgba(232,109,45,.35), transparent);
+    }
+
+    /* Shared section wrapper */
+    .wrap {
+      max-width: 1380px; margin: 0 auto; padding: 0 52px;
+    }
+
+    .s-label {
+      font-size: 10px; letter-spacing: 7px;
+      color: var(--orange); font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .s-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(34px, 4.5vw, 60px);
+      font-weight: 900; line-height: 1.1;
+      color: var(--cream); margin-bottom: 52px;
+    }
+
+    /* Fade-in on scroll */
+    .fade { opacity: 0; transform: translateY(36px); transition: opacity .85s ease, transform .85s ease; }
+    .fade.on { opacity: 1; transform: none; }
+
+    /* ── MANIFESTO GRID ── */
+    #manifesto { padding: 110px 52px; max-width: 1380px; margin: 0 auto; }
+
+    .mg {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+    }
+
+    /* Glass card base */
+    .gc {
+      background: rgba(27,48,69,.62);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(232,109,45,.22);
+      border-radius: 28px;
+      padding: 38px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.04),
+        0 24px 64px rgba(0,0,0,.28),
+        0 0 40px rgba(232,109,45,.04);
+      transition: transform .4s ease, border-color .4s, box-shadow .4s;
+    }
+    .gc:hover {
+      transform: translateY(-5px);
+      border-color: rgba(232,109,45,.48);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.06),
+        0 32px 80px rgba(0,0,0,.35),
+        0 0 60px rgba(232,109,45,.1);
+    }
+
+    .gc-glow {
+      background: linear-gradient(135deg, rgba(232,109,45,.22), rgba(232,109,45,.06));
+      border-color: rgba(232,109,45,.38);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.05),
+        0 24px 64px rgba(0,0,0,.28),
+        0 0 80px rgba(232,109,45,.1);
+    }
+
+    .gc-span2 { grid-column: span 2; }
+    .gc-span3 { grid-column: span 3; }
+
+    .gc-icon { font-size: 38px; margin-bottom: 18px; display: block; }
+    .gc-h { font-family: 'Noto Serif TC', serif; font-size: 26px; font-weight: 900; color: var(--cream); margin-bottom: 12px; line-height: 1.25; }
+    .gc-p { font-size: 15px; line-height: 1.85; color: rgba(245,237,214,.6); }
+    .gc-hi { color: var(--orange-lt); font-weight: 700; }
+
+    .stat-num { font-family: 'Noto Serif TC', serif; font-size: 54px; font-weight: 900; color: var(--orange); line-height: 1; margin-bottom: 6px; }
+    .stat-lbl { font-size: 12px; letter-spacing: 4px; color: rgba(245,237,214,.45); }
+
+    /* ── PROGRAM ── */
+    #program { padding: 0 52px 110px; max-width: 1380px; margin: 0 auto; }
+    #program .s-title { margin-top: 110px; }
+
+    .pg {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .pc {
+      background: rgba(27,48,69,.48);
+      border: 1px solid rgba(232,109,45,.18);
+      border-radius: 24px;
+      padding: 30px 26px;
+      transition: all .4s ease;
+    }
+    .pc:hover {
+      background: rgba(232,109,45,.07);
+      border-color: rgba(232,109,45,.44);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,.28), 0 0 40px rgba(232,109,45,.1);
+    }
+    .pc-num {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 44px; font-weight: 900;
+      color: rgba(232,109,45,.22); line-height: 1; margin-bottom: 18px;
+    }
+    .pc-name { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 900; color: var(--cream); margin-bottom: 10px; }
+    .pc-desc { font-size: 13px; line-height: 1.75; color: rgba(245,237,214,.52); }
+    .pc-tag {
+      display: inline-block; margin-top: 18px;
+      padding: 5px 14px; border-radius: 100px;
+      background: rgba(232,109,45,.1);
+      border: 1px solid rgba(232,109,45,.28);
+      font-size: 10px; letter-spacing: 2px; color: var(--orange-lt);
+    }
+
+    /* ── VERTICAL TEXT STRIP ── */
+    #strip {
+      padding: 72px 0;
+      background: linear-gradient(180deg, var(--deep-blue) 0%, rgba(232,109,45,.04) 50%, var(--deep-blue) 100%);
+      overflow: hidden;
+    }
+    .strip-inner {
+      max-width: 1380px; margin: 0 auto; padding: 0 52px;
+      display: grid; grid-template-columns: 72px 1fr; gap: 44px; align-items: center;
+    }
+    .vtext {
+      writing-mode: vertical-rl; text-orientation: upright;
+      font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900;
+      letter-spacing: 10px; color: rgba(232,109,45,.35); user-select: none;
+    }
+    .strip-row { display: flex; gap: 16px; }
+    .sbadge {
+      flex-shrink: 0; width: 188px; height: 188px; border-radius: 22px;
+      background: rgba(27,48,69,.55);
+      border: 1px solid rgba(232,109,45,.22);
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 8px; text-align: center; padding: 18px;
+      transition: border-color .3s, transform .3s;
+    }
+    .sbadge:hover { border-color: rgba(232,109,45,.5); transform: scale(1.04); }
+    .sbadge-em { font-size: 30px; }
+    .sbadge-h { font-family: 'Noto Serif TC', serif; font-size: 17px; font-weight: 900; color: var(--cream); line-height: 1.3; }
+    .sbadge-s { font-size: 10px; letter-spacing: 2px; color: var(--orange-lt); }
+
+    /* ── LOCATION ── */
+    #location { padding: 0 52px 110px; max-width: 1380px; margin: 0 auto; }
+    #location .s-title { margin-top: 110px; }
+
+    .loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+    .loc-card {
+      background: rgba(232,109,45,.06);
+      border: 1px solid rgba(232,109,45,.28);
+      border-radius: 28px; padding: 46px;
+      display: flex; flex-direction: column; gap: 28px; min-height: 360px;
+    }
+    .loc-row { display: flex; align-items: flex-start; gap: 16px; }
+    .loc-ico { font-size: 22px; flex-shrink: 0; margin-top: 3px; }
+    .loc-lbl { font-size: 10px; letter-spacing: 4px; color: var(--orange); font-weight: 700; margin-bottom: 6px; }
+    .loc-val { font-family: 'Noto Serif TC', serif; font-size: 19px; font-weight: 700; color: var(--cream); line-height: 1.5; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(232,109,45,.22), rgba(232,109,45,.07));
+      border: 1px solid rgba(232,109,45,.38);
+      border-radius: 28px; padding: 46px;
+      display: flex; flex-direction: column; justify-content: space-between; min-height: 360px;
+      box-shadow: 0 0 100px rgba(232,109,45,.07);
+    }
+    .cta-h {
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 900; color: var(--cream); line-height: 1.25;
+    }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      width: fit-content; padding: 15px 30px; border-radius: 100px;
+      background: var(--orange); border: none;
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 14px; font-weight: 700; letter-spacing: 2px; color: #fff;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 0 44px rgba(232,109,45,.38);
+      transition: all .3s ease;
+    }
+    .cta-btn:hover {
+      background: var(--orange-lt);
+      box-shadow: 0 0 70px rgba(232,109,45,.6);
+      transform: translateY(-2px);
+    }
+    .cta-note { font-size: 12px; color: rgba(245,237,214,.4); letter-spacing: 1px; margin-top: 10px; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(232,109,45,.12);
+      padding: 44px 52px;
+      max-width: 1380px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .ft-left { display: flex; align-items: center; gap: 16px; }
+    .ft-logo { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(232,109,45,.35); }
+    .ft-t1 { font-size: 13px; color: rgba(245,237,214,.4); letter-spacing: 1px; }
+    .ft-t2 { font-size: 11px; color: rgba(245,237,214,.25); letter-spacing: 2px; margin-top: 3px; }
+    .ft-right { font-size: 11px; letter-spacing: 3px; color: rgba(245,237,214,.25); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .mg { grid-template-columns: 1fr 1fr; }
+      .gc-span2 { grid-column: span 2; }
+      .pg { grid-template-columns: 1fr 1fr; }
+      .loc-grid { grid-template-columns: 1fr; }
+      #hero-bottom { grid-template-columns: 1fr; }
+      .hero-tags { align-items: flex-start; }
+    }
+    @media (max-width: 640px) {
+      .mg { grid-template-columns: 1fr; }
+      .gc-span2, .gc-span3 { grid-column: span 1; }
+      .pg { grid-template-columns: 1fr; }
+      #manifesto, #program, #location { padding-left: 24px; padding-right: 24px; }
+      #nav { padding: 28px 24px; }
+      .nav-links { display: none; }
+      .jp-rule { margin: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- ── LOADING ── -->
+<div id="loading">
+  <img src="LOGOup.png" class="ld-logo" alt="蘇澳漁悅季">
+  <p class="ld-text">漁悅即將開始，請稍候</p>
+  <div class="ld-bar-wrap"><div class="ld-bar" id="ld-bar"></div></div>
+</div>
+
+<!-- ── HERO ── -->
+<div id="scroll-zone">
+  <div id="sticky-hero">
+    <canvas id="frame-canvas"></canvas>
+    <div id="glow-bloom"></div>
+    <div id="depth-top"></div>
+
+    <!-- NAV -->
+    <nav id="nav">
+      <div class="nav-brand">
+        <img src="LOGOup.png" class="nav-logo" alt="Logo">
+        <span class="nav-name">SUAO FISHING FESTIVAL</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#manifesto">關於</a></li>
+        <li><a href="#program">活動</a></li>
+        <li><a href="#location">交通</a></li>
+      </ul>
+    </nav>
+
+    <!-- TITLE -->
+    <div id="hero-bottom">
+      <div>
+        <div class="hero-kicker">2026 · SUAO · 宜蘭縣蘇澳漁港</div>
+        <h1 class="hero-h1">漁<em>悅</em>季</h1>
+        <p class="hero-sub">蘇澳漁悅季　沉浸式主題視覺</p>
+      </div>
+      <div class="hero-tags">
+        <div class="tag tag-orange">2026.04　限定登場</div>
+        <div class="tag tag-blue">宜蘭縣　蘇澳漁港</div>
+      </div>
+    </div>
+
+    <div id="scroll-cue">
+      <span>SCROLL</span>
+      <div class="cue-line"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONTENT ── -->
+<div id="content">
+  <div class="jp-rule"></div>
+
+  <!-- MANIFESTO -->
+  <section id="manifesto" class="fade">
+    <div class="s-label">— 漁悅宣言 MANIFESTO</div>
+    <h2 class="s-title">黑鮪魚，不只是一條魚，<br>是蘇澳的靈魂。</h2>
+
+    <div class="mg">
+      <!-- Span-2 feature card -->
+      <div class="gc gc-glow gc-span2" style="display:flex;gap:36px;align-items:center;flex-wrap:wrap;">
+        <div style="flex:1;min-width:220px;">
+          <span class="gc-icon">🐟</span>
+          <h3 class="gc-h">每年四月，<br>大洋之王回家</h3>
+          <p class="gc-p">
+            太平洋黑鮪魚洄游季節，是蘇澳漁人最期待的時刻。牠們從深邃的大洋帶來豐收的訊息，也帶來整個港口最熱烈的歡呼聲。<br><br>
+            漁悅季，是一次與海洋的重逢，也是一次與土地深處的對話。
+          </p>
+        </div>
+        <div style="flex-shrink:0;text-align:center;padding:8px;">
+          <div class="stat-num">30<span style="font-size:28px;opacity:.6">+</span></div>
+          <div class="stat-lbl">年　漁業傳承</div>
+        </div>
+      </div>
+
+      <!-- Single card -->
+      <div class="gc" style="display:flex;flex-direction:column;justify-content:space-between;">
+        <div>
+          <span class="gc-icon">🌊</span>
+          <h3 class="gc-h">深海的味道</h3>
+          <p class="gc-p">蘇澳黑鮪魚以脂肪豐富、口感細膩著稱，每一口都是<span class="gc-hi">太平洋的饋贈</span>。產季短暫，滋味永恆。</p>
+        </div>
+        <div style="margin-top:28px;">
+          <div class="stat-num" style="font-size:44px;">200<span style="font-size:22px;opacity:.6">kg+</span></div>
+          <div class="stat-lbl">單尾最高紀錄</div>
+        </div>
+      </div>
+
+      <!-- Stats row -->
+      <div class="gc" style="text-align:center;">
+        <span class="gc-icon">🏮</span>
+        <h3 class="gc-h">漁火祭典</h3>
+        <p class="gc-p">入夜後的港口，千盞漁火與音樂共鳴，在浪聲中感受屬於蘇澳的夜。</p>
+      </div>
+
+      <div class="gc" style="text-align:center;">
+        <span class="gc-icon">🎨</span>
+        <h3 class="gc-h">浮世繪靈感</h3>
+        <p class="gc-p">以葛飾北齋的「神奈川沖浪裏」為靈感，讓蘇澳成為你的視覺記憶。</p>
+      </div>
+
+      <div class="gc" style="text-align:center;">
+        <span class="gc-icon">🚢</span>
+        <h3 class="gc-h">出海體驗</h3>
+        <p class="gc-p">搭乘漁船，由老漁人帶路，親身感受黑鮪魚洄游的壯闊。<span class="gc-hi">名額有限</span>。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="jp-rule"></div>
+
+  <!-- PROGRAM -->
+  <section id="program" class="fade">
+    <div class="s-label">— 活動項目 PROGRAM</div>
+    <h2 class="s-title">四天的海洋盛宴</h2>
+    <div class="pg">
+      <div class="pc">
+        <div class="pc-num">01</div>
+        <div class="pc-name">黑鮪魚市集</div>
+        <p class="pc-desc">港邊直送的黑鮪魚拍賣、現切生魚片、鮪魚創意料理，漁人直接上桌，零距離品味太平洋。</p>
+        <span class="pc-tag">美食體驗</span>
+      </div>
+      <div class="pc">
+        <div class="pc-num">02</div>
+        <div class="pc-name">深夜漁火祭</div>
+        <p class="pc-desc">日落後的蘇澳港，千盞漁火點亮海面，音樂節同步舉行，在浪聲中體驗漁港夜生活。</p>
+        <span class="pc-tag">音樂 × 燈光</span>
+      </div>
+      <div class="pc">
+        <div class="pc-num">03</div>
+        <div class="pc-name">出海體驗</div>
+        <p class="pc-desc">搭乘蘇澳漁船，由老漁人親自帶路出海，親身感受黑鮪魚洄游的壯闊，限額開放報名。</p>
+        <span class="pc-tag">限額 · 預約制</span>
+      </div>
+      <div class="pc">
+        <div class="pc-num">04</div>
+        <div class="pc-name">浮世繪工作坊</div>
+        <p class="pc-desc">日式版畫職人指導，以蘇澳海景為主題創作你的專屬浮世繪，帶走獨一無二的漁港記憶。</p>
+        <span class="pc-tag">藝術 × 文化</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div id="strip" class="fade">
+    <div class="strip-inner">
+      <div class="vtext">蘇　澳　漁　悅</div>
+      <div class="strip-row">
+        <div class="sbadge"><div class="sbadge-em">🎣</div><div class="sbadge-h">漁港<br>體驗</div><div class="sbadge-s">FISHING PORT</div></div>
+        <div class="sbadge"><div class="sbadge-em">🍣</div><div class="sbadge-h">生魚片<br>直送</div><div class="sbadge-s">FRESH SASHIMI</div></div>
+        <div class="sbadge"><div class="sbadge-em">🌅</div><div class="sbadge-h">海上<br>日出</div><div class="sbadge-s">OCEAN SUNRISE</div></div>
+        <div class="sbadge"><div class="sbadge-em">🏮</div><div class="sbadge-h">漁火<br>夜祭</div><div class="sbadge-s">LANTERN NIGHT</div></div>
+        <div class="sbadge"><div class="sbadge-em">🎨</div><div class="sbadge-h">浮世繪<br>工作坊</div><div class="sbadge-s">ART WORKSHOP</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="jp-rule"></div>
+
+  <!-- LOCATION -->
+  <section id="location" class="fade">
+    <div class="s-label">— 交通資訊 LOCATION</div>
+    <h2 class="s-title">找到我們</h2>
+    <div class="loc-grid">
+      <div class="loc-card">
+        <div class="loc-row">
+          <span class="loc-ico">📍</span>
+          <div><div class="loc-lbl">活動地點</div><div class="loc-val">宜蘭縣蘇澳鎮<br>蘇澳漁港第一漁港</div></div>
+        </div>
+        <div class="loc-row">
+          <span class="loc-ico">📅</span>
+          <div><div class="loc-lbl">活動期間</div><div class="loc-val">2026 年 4 月<br>詳細日程公告中</div></div>
+        </div>
+        <div class="loc-row">
+          <span class="loc-ico">🚂</span>
+          <div><div class="loc-lbl">大眾運輸</div><div class="loc-val">台鐵蘇澳新站下車<br>步行約 10 分鐘</div></div>
+        </div>
+        <div class="loc-row">
+          <span class="loc-ico">🚗</span>
+          <div><div class="loc-lbl">自行開車</div><div class="loc-val">國道 5 號蘇澳交流道<br>往蘇澳漁港方向</div></div>
+        </div>
+      </div>
+
+      <div class="cta-card">
+        <div>
+          <div class="s-label" style="margin-bottom:14px;">— 保留你的位置</div>
+          <h3 class="cta-h">不只是吃魚，<br>是一段<br>海洋的記憶。</h3>
+        </div>
+        <div>
+          <a href="#" class="cta-btn">立即報名活動 →</a>
+          <p class="cta-note">部分活動名額有限，敬請提早報名</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="fade">
+    <div class="ft-left">
+      <img src="LOGOup.png" class="ft-logo" alt="Logo">
+      <div>
+        <div class="ft-t1">2026 蘇澳漁悅季</div>
+        <div class="ft-t2">宜蘭縣蘇澳鎮漁業文化節</div>
+      </div>
+    </div>
+    <div class="ft-right">© 2026 SUAO FISHING FESTIVAL</div>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   FRAME SEQUENCE — Apple-style scroll animation
+   ============================================================ */
+const TOTAL = 192;
+const DIR   = 'frames/';
+
+const canvas   = document.getElementById('frame-canvas');
+const ctx      = canvas.getContext('2d');
+const bloom    = document.getElementById('glow-bloom');
+const cue      = document.getElementById('scroll-cue');
+const ldBar    = document.getElementById('ld-bar');
+const ldScreen = document.getElementById('loading');
+const progBar  = document.getElementById('scroll-progress');
+
+// Frame store
+const imgs = new Array(TOTAL).fill(null);
+let loaded = 0;
+let curF   = 0;   // actual (float for smooth lerp)
+let tgtF   = 0;   // target
+let raf    = null;
+let ready  = false;
+
+/* ── Resize canvas ── */
+function resize() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  drawFrame(Math.round(curF));
+}
+window.addEventListener('resize', resize, { passive: true });
+resize();
+
+/* ── Draw one frame, cover-fill ── */
+function drawFrame(i) {
+  const img = imgs[i];
+  if (!img || !img.complete) return;
+
+  const cw = canvas.width, ch = canvas.height;
+  const iw = img.naturalWidth, ih = img.naturalHeight;
+  const scale = Math.max(cw / iw, ch / ih);
+  const sw = iw * scale, sh = ih * scale;
+
+  ctx.clearRect(0, 0, cw, ch);
+  ctx.fillStyle = '#1B3045';
+  ctx.fillRect(0, 0, cw, ch);
+  ctx.drawImage(img, (cw - sw) / 2, (ch - sh) / 2, sw, sh);
+}
+
+/* ── Lerp animation loop ── */
+function loop() {
+  const diff = tgtF - curF;
+  if (Math.abs(diff) > 0.3) {
+    curF += diff * 0.14;
+    drawFrame(Math.round(curF));
+  } else {
+    curF = tgtF;
+    drawFrame(Math.round(curF));
+  }
+  raf = requestAnimationFrame(loop);
+}
+
+/* ── Update glow bloom based on progress ── */
+function setBloom(p) {
+  // Intensity peaks at mid-scroll (fish leaping)
+  const mid = Math.sin(p * Math.PI);
+  const size = 55 + mid * 22;
+  const alpha = 0.07 + mid * 0.28;
+  bloom.style.background = `radial-gradient(
+    ellipse ${size}% ${size}% at 50% ${50 + p * 12}%,
+    rgba(232,${Math.round(109 + p * 18)},45,${alpha.toFixed(3)}) 0%,
+    transparent 70%
+  )`;
+}
+
+/* ── Scroll handler ── */
+function onScroll() {
+  const zone = document.getElementById('scroll-zone');
+  const maxY = zone.offsetHeight - window.innerHeight;
+  const p    = Math.max(0, Math.min(1, window.scrollY / maxY));
+
+  tgtF = p * (TOTAL - 1);
+  setBloom(p);
+
+  // Fade scroll cue
+  cue.style.opacity = Math.max(0, 1 - window.scrollY / 160);
+
+  // Progress bar (full page)
+  const full = document.body.scrollHeight - window.innerHeight;
+  progBar.style.width = ((window.scrollY / full) * 100).toFixed(2) + '%';
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+
+/* ── Preload all frames ── */
+(function preload() {
+  for (let i = 0; i < TOTAL; i++) {
+    const im = new Image();
+    im.onload = () => {
+      loaded++;
+      ldBar.style.width = ((loaded / TOTAL) * 100).toFixed(1) + '%';
+      if (!ready && i === 0) { drawFrame(0); }
+      if (loaded === TOTAL) {
+        setTimeout(() => {
+          ldScreen.classList.add('out');
+          ready = true;
+          if (!raf) loop();
+        }, 350);
+      }
+    };
+    im.onerror = () => { loaded++; };
+    im.src = `${DIR}frame_${String(i).padStart(4, '0')}.jpg`;
+    imgs[i] = im;
+  }
+})();
+
+/* ============================================================
+   INTERSECTION OBSERVER — fade-in sections
+   ============================================================ */
+const io = new IntersectionObserver(
+  entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }),
+  { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+);
+document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+/* ============================================================
+   NAV LOGO dynamic glow on hero scroll
+   ============================================================ */
+const navLogo = document.querySelector('.nav-logo');
+window.addEventListener('scroll', () => {
+  const p = Math.min(1, window.scrollY / window.innerHeight);
+  navLogo.style.boxShadow = `0 0 ${20 + p * 35}px rgba(232,109,45,${(0.25 + p * 0.45).toFixed(2)})`;
+}, { passive: true });
+</script>
+</body>
+</html>

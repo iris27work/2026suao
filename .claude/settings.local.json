@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ffprobe -v quiet -print_format json -show_streams /Users/chenchuchu/Desktop/2026suao/video.mp4)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); v=[s for s in d['streams'] if s['codec_type']=='video'][0]; print\\(f\\\\\"Duration: {v.get\\('duration','N/A'\\)}s\\\\nFPS: {v.get\\('r_frame_rate','N/A'\\)}\\\\nResolution: {v.get\\('width'\\)}x{v.get\\('height'\\)}\\\\nTotal frames: {v.get\\('nb_frames','N/A'\\)}\\\\\"\\)\")"
+    ]
+  }
+}
