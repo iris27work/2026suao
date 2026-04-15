@@ -231,6 +231,79 @@
     .cta-btn:hover { background: var(--orange-lt); box-shadow: 0 0 70px rgba(232,109,45,.6); transform: translateY(-2px); }
     .cta-note { font-size: 12px; color: rgba(245,237,214,.4); letter-spacing: 1px; margin-top: 10px; }
 
+    /* ── REGISTER FORM ── */
+    .reg-wrap { max-width: 680px; margin: 0 auto; }
+
+    .reg-step-bar { display: flex; align-items: center; justify-content: center; margin-bottom: 52px; }
+    .reg-dot { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; background: rgba(27,48,69,.8); border: 1.5px solid rgba(232,109,45,.3); color: rgba(245,237,214,.4); transition: all .3s; }
+    .reg-dot.done { background: rgba(232,109,45,.2); border-color: var(--orange); color: var(--orange-lt); }
+    .reg-dot.active { background: var(--orange); border-color: var(--orange); color: #fff; box-shadow: 0 0 20px rgba(232,109,45,.4); }
+    .reg-line { flex: 1; height: 1px; background: rgba(232,109,45,.2); max-width: 80px; transition: background .3s; }
+    .reg-line.done { background: var(--orange); }
+
+    .reg-panel { animation: regFadeIn .4s ease; }
+    @keyframes regFadeIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+    .reg-section-title { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; color: var(--cream); margin-bottom: 28px; }
+
+    .reg-field { margin-bottom: 22px; }
+    .reg-field > label:first-child { display: block; font-size: 11px; letter-spacing: 4px; color: var(--orange); font-weight: 700; margin-bottom: 8px; }
+    .reg-input { width: 100%; padding: 14px 18px; background: rgba(27,48,69,.7); border: 1px solid rgba(232,109,45,.22); border-radius: 12px; color: var(--cream); font-family: 'Noto Sans TC', sans-serif; font-size: 15px; outline: none; transition: border-color .3s, box-shadow .3s; }
+    .reg-input:focus { border-color: rgba(232,109,45,.6); box-shadow: 0 0 0 3px rgba(232,109,45,.08); }
+    .reg-input::placeholder { color: rgba(245,237,214,.3); }
+    .reg-input[readonly] { cursor: default; color: var(--orange-lt); }
+    textarea.reg-input { resize: vertical; min-height: 100px; }
+
+    .pkg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .pkg-card { padding: 24px 20px; border-radius: 18px; background: rgba(27,48,69,.6); border: 1.5px solid rgba(232,109,45,.2); cursor: pointer; transition: all .3s; text-align: center; }
+    .pkg-card:hover { border-color: rgba(232,109,45,.5); }
+    .pkg-card.selected { background: rgba(232,109,45,.12); border-color: var(--orange); box-shadow: 0 0 30px rgba(232,109,45,.12); }
+    .pkg-price { font-family: 'Noto Serif TC', serif; font-size: 28px; font-weight: 900; color: var(--orange); line-height: 1; margin-bottom: 8px; }
+    .pkg-name { font-size: 13px; font-weight: 700; color: var(--cream); margin-bottom: 6px; letter-spacing: 1px; }
+    .pkg-desc { font-size: 11px; color: rgba(245,237,214,.5); line-height: 1.6; }
+
+    .policy-box { background: rgba(27,48,69,.5); border: 1px solid rgba(232,109,45,.15); border-radius: 12px; padding: 18px 20px; font-size: 12px; line-height: 1.8; color: rgba(245,237,214,.5); margin-bottom: 14px; max-height: 130px; overflow-y: auto; }
+    .policy-box::-webkit-scrollbar { width: 4px; }
+    .policy-box::-webkit-scrollbar-thumb { background: rgba(232,109,45,.3); border-radius: 2px; }
+    .reg-check { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+    .reg-check input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--orange); margin-top: 2px; cursor: pointer; }
+    .reg-check span { font-size: 13px; color: rgba(245,237,214,.7); line-height: 1.6; }
+
+    .radio-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .radio-pill { padding: 9px 20px; border-radius: 100px; background: rgba(27,48,69,.6); border: 1px solid rgba(232,109,45,.2); color: rgba(245,237,214,.6); font-size: 13px; cursor: pointer; transition: all .3s; }
+    .radio-pill.selected { background: rgba(232,109,45,.15); border-color: var(--orange); color: var(--orange-lt); }
+
+    .seat-grid { display: grid; gap: 10px; }
+    .seat-card { padding: 18px 22px; border-radius: 16px; background: rgba(27,48,69,.6); border: 1.5px solid rgba(232,109,45,.18); cursor: pointer; transition: all .3s; }
+    .seat-card:hover { border-color: rgba(232,109,45,.45); }
+    .seat-card.selected { background: rgba(232,109,45,.1); border-color: var(--orange); }
+    .seat-card-title { font-size: 14px; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
+    .seat-card-sub { font-size: 12px; color: rgba(245,237,214,.45); }
+
+    .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .check-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; background: rgba(27,48,69,.5); border: 1px solid rgba(232,109,45,.15); cursor: pointer; font-size: 12px; color: rgba(245,237,214,.65); transition: all .3s; user-select: none; }
+    .check-item input { accent-color: var(--orange); flex-shrink: 0; pointer-events: none; }
+    .check-item.selected { background: rgba(232,109,45,.1); border-color: rgba(232,109,45,.4); color: var(--cream); }
+
+    .rating-row { display: flex; gap: 10px; }
+    .rating-btn { flex: 1; padding: 14px 0; text-align: center; border-radius: 12px; background: rgba(27,48,69,.6); border: 1px solid rgba(232,109,45,.18); color: rgba(245,237,214,.5); font-size: 15px; font-weight: 700; cursor: pointer; transition: all .3s; }
+    .rating-btn.selected { background: rgba(232,109,45,.2); border-color: var(--orange); color: var(--orange-lt); }
+    .rating-labels { display: flex; justify-content: space-between; margin-top: 6px; font-size: 10px; color: rgba(245,237,214,.3); letter-spacing: 1px; }
+
+    .reg-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; }
+    .reg-nav.end { justify-content: flex-end; }
+    .reg-btn-back { background: none; border: 1px solid rgba(232,109,45,.3); color: rgba(245,237,214,.5); padding: 12px 24px; border-radius: 100px; font-size: 13px; letter-spacing: 2px; cursor: pointer; transition: all .3s; font-family: 'Noto Sans TC', sans-serif; }
+    .reg-btn-back:hover { border-color: rgba(232,109,45,.6); color: var(--cream); }
+    .reg-btn-next { background: var(--orange); border: none; color: #fff; padding: 14px 32px; border-radius: 100px; font-size: 14px; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: all .3s; font-family: 'Noto Sans TC', sans-serif; box-shadow: 0 0 30px rgba(232,109,45,.3); }
+    .reg-btn-next:hover { background: var(--orange-lt); box-shadow: 0 0 50px rgba(232,109,45,.5); transform: translateY(-2px); }
+    .reg-btn-next:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+    @media (max-width: 640px) {
+      .pkg-grid { grid-template-columns: 1fr; }
+      .check-grid { grid-template-columns: 1fr; }
+      .rating-row { gap: 6px; }
+      .rating-btn { padding: 12px 0; font-size: 13px; }
+    }
+
     /* ── FOOTER ── */
     footer { border-top: 1px solid rgba(232,109,45,.12); padding: 44px 52px; max-width: 1380px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
     .ft-left { display: flex; align-items: center; gap: 16px; }
@@ -521,20 +594,204 @@
      PAGE: 立即報名
 ════════════════════════════════════════════ -->
 <div id="page-register" class="page">
-  <div class="page-inner" style="max-width:760px;">
+  <div class="page-inner">
     <section class="fade">
       <div class="s-label">— 活動報名 REGISTER</div>
       <h2 class="s-title">保留你的位置</h2>
-      <div style="border-radius:24px;overflow:hidden;border:1px solid rgba(232,109,45,.22);box-shadow:0 24px 64px rgba(0,0,0,.3);">
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSfSdV2OWK4GPxtj3ZN2r2qT0Gji_-gRrEDhI9rcE7vqEprGTA/viewform?embedded=true"
-          width="100%" height="3257"
-          frameborder="0" marginheight="0" marginwidth="0"
-          style="display:block;background:#fff;">
-          載入中…
-        </iframe>
+
+      <div class="reg-wrap">
+        <!-- Step indicator -->
+        <div class="reg-step-bar">
+          <div class="reg-dot active" id="rdot-1">1</div>
+          <div class="reg-line" id="rline-1"></div>
+          <div class="reg-dot" id="rdot-2">2</div>
+          <div class="reg-line" id="rline-2"></div>
+          <div class="reg-dot" id="rdot-3">3</div>
+        </div>
+
+        <!-- ── STEP 1: 基本資訊 ── -->
+        <div id="reg-step-1" class="reg-panel">
+          <div class="reg-section-title">基本資訊<br><span style="font-size:14px;font-weight:400;color:rgba(245,237,214,.45);">Basic Information</span></div>
+
+          <div class="reg-field">
+            <label>電子郵件 EMAIL *</label>
+            <input type="email" class="reg-input" id="r-email" placeholder="your@email.com">
+          </div>
+
+          <div class="reg-field">
+            <label>方案選擇 PACKAGE *</label>
+            <div class="pkg-grid">
+              <div class="pkg-card" data-pkg="NT$1,888 黑鮪靠港" data-amount="1888">
+                <div class="pkg-price">NT$1,888</div>
+                <div class="pkg-name">黑鮪靠港</div>
+                <div class="pkg-desc">晚宴 + 紀念品 ×5<br>集章競標活動</div>
+              </div>
+              <div class="pkg-card" data-pkg="NT$2,000 港灣旅人" data-amount="2000">
+                <div class="pkg-price">NT$2,000</div>
+                <div class="pkg-name">港灣旅人</div>
+                <div class="pkg-desc">黑鮪靠港全包含<br>+ 魚丸 DIY 工作坊</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reg-field">
+            <label>退費政策 REFUND POLICY</label>
+            <div class="policy-box">
+              活動前 14 天以上取消：退還 90% 票款。<br>
+              活動前 7–13 天取消：退還 50% 票款。<br>
+              活動前 6 天內取消：恕不退款。<br>
+              可於活動前 3 天辦理票券轉讓。<br>
+              如遇不可抗力因素，主辦單位保留調整或取消活動之權利並全額退款。<br><br>
+              Cancellation 14+ days before event: 90% refund.<br>
+              7–13 days before: 50% refund. Within 6 days: No refund.<br>
+              Ticket transfers allowed with 3-day notice.<br>
+              Force majeure: full refund provided.
+            </div>
+            <label class="reg-check">
+              <input type="checkbox" id="r-policy">
+              <span>我已閱讀並同意上述退費與取消政策<br><span style="font-size:11px;opacity:.7;">I have read and agree to the policy above.</span></span>
+            </label>
+          </div>
+
+          <div class="reg-nav end">
+            <button class="reg-btn-next" id="step1-next">下一步 NEXT →</button>
+          </div>
+        </div>
+
+        <!-- ── STEP 2: 個人資料 ── -->
+        <div id="reg-step-2" class="reg-panel" style="display:none;">
+          <div class="reg-section-title">個人資料<br><span style="font-size:14px;font-weight:400;color:rgba(245,237,214,.45);">Personal Information</span></div>
+
+          <div class="reg-field">
+            <label>姓名 FULL NAME *</label>
+            <input type="text" class="reg-input" id="r-name" placeholder="王小明 / Ming Wang">
+          </div>
+
+          <div class="reg-field">
+            <label>聯絡電話 PHONE NUMBER *</label>
+            <input type="tel" class="reg-input" id="r-phone" placeholder="0912-345-678">
+          </div>
+
+          <div class="reg-field">
+            <label>性別 GENDER</label>
+            <div class="radio-row" id="gender-row">
+              <div class="radio-pill" data-val="男 Male">男 Male</div>
+              <div class="radio-pill" data-val="女 Female">女 Female</div>
+              <div class="radio-pill" data-val="其他 Other">其他 Other</div>
+            </div>
+          </div>
+
+          <div class="reg-field">
+            <label>座位社交偏好 SEATING PREFERENCE *</label>
+            <div class="seat-grid" id="seat-grid">
+              <div class="seat-card" data-val="【外向社交桌】我想交朋友！(Extrovert / Social Table: I'm here to network!)">
+                <div class="seat-card-title">🗣 外向社交桌</div>
+                <div class="seat-card-sub">我想交朋友！Extrovert / Social Table: I'm here to network!</div>
+              </div>
+              <div class="seat-card" data-val="【內向吃飯桌】我想安靜享用美食。(Introvert / Quiet Table: I'm here for the food.)">
+                <div class="seat-card-title">🍽 內向吃飯桌</div>
+                <div class="seat-card-sub">我想安靜享用美食。Introvert / Quiet Table: I'm here for the food.</div>
+              </div>
+              <div class="seat-card" data-val="【相信緣分桌】隨緣安排，我都沒問題。(Destiny Seating: Open to surprises, let fate decide!)">
+                <div class="seat-card-title">✨ 相信緣分桌</div>
+                <div class="seat-card-sub">隨緣安排，我都沒問題。Destiny Seating: Open to surprises, let fate decide!</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reg-field">
+            <label>付款金額 PAYMENT AMOUNT</label>
+            <input type="text" class="reg-input" id="r-amount" readonly>
+          </div>
+
+          <div class="reg-field">
+            <label>匯款末五碼 LAST 5 DIGITS OF TRANSFER *</label>
+            <input type="text" class="reg-input" id="r-transfer" placeholder="12345" maxlength="5" inputmode="numeric">
+          </div>
+
+          <div class="reg-field">
+            <label>飲食、備註與特殊需求 DIETARY & SPECIFIC NEEDS</label>
+            <textarea class="reg-input" id="r-dietary" placeholder="如有過敏原或特殊需求請填寫 / Please note any allergies or special requirements"></textarea>
+          </div>
+
+          <div class="reg-nav">
+            <button class="reg-btn-back" id="step2-back">← 上一步</button>
+            <button class="reg-btn-next" id="step2-next">下一步 NEXT →</button>
+          </div>
+        </div>
+
+        <!-- ── STEP 3: 問卷 ── -->
+        <div id="reg-step-3" class="reg-panel" style="display:none;">
+          <div class="reg-section-title">活動問卷<br><span style="font-size:14px;font-weight:400;color:rgba(245,237,214,.45);">Activity Survey</span></div>
+
+          <div class="reg-field">
+            <label>您是如何得知本次活動的？HOW DID YOU HEAR ABOUT THIS? (可複選)</label>
+            <div class="check-grid" id="how-heard-grid">
+              <label class="check-item"><input type="checkbox" value="朋友／家人推薦 Friend/Family Referral">朋友／家人推薦</label>
+              <label class="check-item"><input type="checkbox" value="Facebook / Instagram">Facebook / Instagram</label>
+              <label class="check-item"><input type="checkbox" value="活動官網 Official Website">活動官網</label>
+              <label class="check-item"><input type="checkbox" value="媒體報導 Media Coverage">媒體報導</label>
+              <label class="check-item"><input type="checkbox" value="Google 搜尋 Google Search">Google 搜尋</label>
+              <label class="check-item"><input type="checkbox" value="其他 Other">其他</label>
+            </div>
+          </div>
+
+          <div class="reg-field">
+            <label>您對本次活動內容的期待程度？EXCITEMENT LEVEL</label>
+            <div class="rating-row" id="rating-row">
+              <div class="rating-btn" data-val="1">1</div>
+              <div class="rating-btn" data-val="2">2</div>
+              <div class="rating-btn" data-val="3">3</div>
+              <div class="rating-btn" data-val="4">4</div>
+              <div class="rating-btn" data-val="5">5</div>
+            </div>
+            <div class="rating-labels"><span>普通 Neutral</span><span>非常期待 Very Excited</span></div>
+          </div>
+
+          <div class="reg-field">
+            <label>您的職業或所屬產業？PROFESSION / INDUSTRY</label>
+            <input type="text" class="reg-input" id="r-profession" placeholder="例：餐飲業、科技業、學生… / e.g. Food & Beverage, Tech, Student...">
+          </div>
+
+          <div class="reg-field">
+            <label>您是否曾參加過類似的港灣／漁業主題活動？PREVIOUS SIMILAR ACTIVITIES?</label>
+            <div class="radio-row" id="prev-exp-row">
+              <div class="radio-pill" data-val="是，曾參加過 Yes">是，曾參加過</div>
+              <div class="radio-pill" data-val="否，這是第一次 No">否，這是第一次</div>
+            </div>
+          </div>
+
+          <div class="reg-field">
+            <label>活動當天交通方式 TRANSPORTATION</label>
+            <div class="radio-row" id="transport-row">
+              <div class="radio-pill" data-val="自行開車 Self-driving">自行開車</div>
+              <div class="radio-pill" data-val="大眾運輸 Public Transport">大眾運輸</div>
+              <div class="radio-pill" data-val="騎機車 Motorcycle">騎機車</div>
+              <div class="radio-pill" data-val="共乘 Carpool">共乘</div>
+              <div class="radio-pill" data-val="其他 Other">其他</div>
+            </div>
+          </div>
+
+          <div class="reg-nav">
+            <button class="reg-btn-back" id="step3-back">← 上一步</button>
+            <button class="reg-btn-next" id="step3-submit">送出報名 SUBMIT 🐟</button>
+          </div>
+        </div>
+
+        <!-- ── SUCCESS ── -->
+        <div id="reg-success" class="reg-panel" style="display:none;text-align:center;padding:80px 0;">
+          <div style="font-size:64px;margin-bottom:24px;">🐟</div>
+          <div style="font-family:'Noto Serif TC',serif;font-size:32px;font-weight:900;color:var(--cream);margin-bottom:16px;">報名成功！<br>Registration Complete</div>
+          <p style="font-size:15px;color:rgba(245,237,214,.6);line-height:1.9;">
+            感謝你的報名，我們已收到你的資料。<br>
+            Thank you! We've received your registration.<br><br>
+            請確認 Email 信箱是否有收到確認信。<br>
+            Please check your inbox for a confirmation email.
+          </p>
+        </div>
       </div>
     </section>
+
     <footer class="fade">
       <div class="ft-left">
         <img src="LOGOup.png" class="ft-logo" alt="Logo">
@@ -695,6 +952,142 @@ const io = new IntersectionObserver(
   { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
 );
 document.querySelectorAll('#page-home .fade').forEach(el => io.observe(el));
+
+/* ============================================================
+   REGISTER FORM LOGIC
+   ============================================================ */
+// ↓ 部署 Apps Script 後把 URL 填進來
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+let regData = {};
+
+function regGoStep(n) {
+  [1, 2, 3].forEach(i => {
+    const panel = document.getElementById('reg-step-' + i);
+    const dot   = document.getElementById('rdot-' + i);
+    const line  = document.getElementById('rline-' + i);
+    if (panel) panel.style.display = 'none';
+    if (dot)  { dot.classList.remove('active','done'); if (i < n) dot.classList.add('done'); if (i === n) dot.classList.add('active'); }
+    if (line) line.classList.toggle('done', i < n);
+  });
+  const next = document.getElementById('reg-step-' + n);
+  if (next) next.style.display = 'block';
+  const pageTop = document.getElementById('page-register');
+  if (pageTop) window.scrollTo({ top: pageTop.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+}
+
+// Package cards
+document.querySelectorAll('.pkg-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    regData.package = card.dataset.pkg;
+    regData.amount  = card.dataset.amount;
+    const f = document.getElementById('r-amount');
+    if (f) f.value = 'NT$' + card.dataset.amount;
+  });
+});
+
+// Generic radio pill groups
+function initPills(containerId, key) {
+  document.querySelectorAll('#' + containerId + ' .radio-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('#' + containerId + ' .radio-pill').forEach(p => p.classList.remove('selected'));
+      pill.classList.add('selected');
+      regData[key] = pill.dataset.val;
+    });
+  });
+}
+initPills('gender-row',   'gender');
+initPills('prev-exp-row', 'prevExp');
+initPills('transport-row','transport');
+
+// Seating cards
+document.querySelectorAll('#seat-grid .seat-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('#seat-grid .seat-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    regData.seating = card.dataset.val;
+  });
+});
+
+// Rating buttons
+document.querySelectorAll('#rating-row .rating-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#rating-row .rating-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    regData.excitement = btn.dataset.val;
+  });
+});
+
+// Checkbox items (how heard)
+document.querySelectorAll('#how-heard-grid .check-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const cb = item.querySelector('input');
+    cb.checked = !cb.checked;
+    item.classList.toggle('selected', cb.checked);
+  });
+});
+
+// Step 1 → 2
+document.getElementById('step1-next').addEventListener('click', () => {
+  const email  = document.getElementById('r-email').value.trim();
+  const policy = document.getElementById('r-policy').checked;
+  if (!email || !email.includes('@')) { alert('請填入有效的電子郵件。\nPlease enter a valid email.'); return; }
+  if (!regData.package)  { alert('請選擇方案。\nPlease select a package.'); return; }
+  if (!policy)           { alert('請同意退費政策。\nPlease agree to the refund policy.'); return; }
+  regData.email = email;
+  regGoStep(2);
+});
+
+// Step 2 nav
+document.getElementById('step2-back').addEventListener('click', () => regGoStep(1));
+document.getElementById('step2-next').addEventListener('click', () => {
+  const name     = document.getElementById('r-name').value.trim();
+  const phone    = document.getElementById('r-phone').value.trim();
+  const transfer = document.getElementById('r-transfer').value.trim();
+  if (!name)    { alert('請填入姓名。\nPlease enter your name.'); return; }
+  if (!phone)   { alert('請填入聯絡電話。\nPlease enter your phone.'); return; }
+  if (!regData.seating) { alert('請選擇座位社交偏好。\nPlease select a seating preference.'); return; }
+  if (!transfer || transfer.length !== 5 || isNaN(transfer)) { alert('請填入匯款末五碼（5位數字）。\nLast 5 digits of transfer required.'); return; }
+  regData.name     = name;
+  regData.phone    = phone;
+  regData.transfer = transfer;
+  regData.dietary  = document.getElementById('r-dietary').value.trim();
+  regGoStep(3);
+});
+
+// Step 3 nav
+document.getElementById('step3-back').addEventListener('click', () => regGoStep(2));
+document.getElementById('step3-submit').addEventListener('click', () => {
+  const btn = document.getElementById('step3-submit');
+  btn.disabled    = true;
+  btn.textContent = '送出中… Submitting…';
+
+  regData.howHeard   = Array.from(document.querySelectorAll('#how-heard-grid input:checked')).map(i => i.value).join('、');
+  regData.profession = document.getElementById('r-profession').value.trim();
+
+  const payload = new FormData();
+  Object.entries({
+    email: regData.email, package: regData.package, policy: '是',
+    packagePath: regData.amount, name: regData.name, phone: regData.phone,
+    gender: regData.gender || '', seating: regData.seating,
+    paymentAmount: 'NT$' + regData.amount, transfer: regData.transfer,
+    dietary: regData.dietary || '', howHeard: regData.howHeard,
+    excitement: regData.excitement || '', profession: regData.profession,
+    prevExp: regData.prevExp || '', transport: regData.transport || ''
+  }).forEach(([k, v]) => payload.append(k, v));
+
+  const finish = () => {
+    document.getElementById('reg-step-3').style.display = 'none';
+    document.querySelector('.reg-step-bar').style.display = 'none';
+    document.getElementById('reg-success').style.display = 'block';
+  };
+
+  if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') { setTimeout(finish, 800); return; }
+  fetch(APPS_SCRIPT_URL, { method: 'POST', body: payload, mode: 'no-cors' })
+    .then(finish).catch(finish);
+});
 
 /* Nav logo glow */
 const navLogo = document.querySelector('.nav-logo');
