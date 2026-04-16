@@ -664,37 +664,22 @@
               Ticket transfers allowed with 3-day notice.<br>
               Force majeure: full refund provided.
             </div>
-            <label class="reg-check">
-              <input type="checkbox" id="r-policy">
-              <span>我已閱讀並同意上述退費與取消政策<br><span style="font-size:13px;opacity:.7;">I have read and agree to the refund policy above.</span></span>
-            </label>
+
           </div>
 
           <div class="reg-field">
             <label>注意事項 IMPORTANT NOTES</label>
             <div class="policy-box">123456</div>
-            <label class="reg-check">
-              <input type="checkbox" id="r-notice">
-              <span>我已閱讀並了解上述注意事項<br><span style="font-size:13px;opacity:.7;">I have read and acknowledge the notes above.</span></span>
-            </label>
           </div>
 
           <div class="reg-field">
             <label>過敏原告知 ALLERGEN NOTICE</label>
             <div class="policy-box">123456</div>
-            <label class="reg-check">
-              <input type="checkbox" id="r-allergen">
-              <span>我已閱讀並了解過敏原相關說明<br><span style="font-size:13px;opacity:.7;">I have read and understood the allergen information.</span></span>
-            </label>
           </div>
 
           <div class="reg-field">
             <label>授權同意 CONSENT & AUTHORIZATION</label>
             <div class="policy-box">123456</div>
-            <label class="reg-check">
-              <input type="checkbox" id="r-consent">
-              <span>我已閱讀並同意授權相關條款<br><span style="font-size:13px;opacity:.7;">I have read and agree to the authorization terms.</span></span>
-            </label>
           </div>
 
           <div class="reg-field">
@@ -702,7 +687,7 @@
             <div class="policy-box">123456</div>
             <label class="reg-check">
               <input type="checkbox" id="r-diy">
-              <span>我已閱讀並了解 DIY 工作坊相關事項<br><span style="font-size:13px;opacity:.7;">I have read and understood the DIY workshop information.</span></span>
+              <span>我已閱讀並了解上述注意事項事項<br><span style="font-size:13px;opacity:.7;">I have read and understood the DIY workshop information.</span></span>
             </label>
           </div>
 
@@ -1169,19 +1154,11 @@ document.querySelectorAll('#how-heard-grid .check-item').forEach(item => {
 
 // Step 1 → 2
 document.getElementById('step1-next').addEventListener('click', () => {
-  const email    = document.getElementById('r-email').value.trim();
-  const policy   = document.getElementById('r-policy').checked;
-  const notice   = document.getElementById('r-notice').checked;
-  const allergen = document.getElementById('r-allergen').checked;
-  const consent  = document.getElementById('r-consent').checked;
-  const diy      = document.getElementById('r-diy').checked;
+  const email = document.getElementById('r-email').value.trim();
+  const diy   = document.getElementById('r-diy').checked;
   if (!email || !email.includes('@')) { alert('請填入有效的電子郵件。\nPlease enter a valid email.'); return; }
-  if (!regData.package)  { alert('請選擇方案。\nPlease select a package.'); return; }
-  if (!policy)   { alert('請同意退費政策。\nPlease agree to the refund policy.'); return; }
-  if (!notice)   { alert('請確認已閱讀注意事項。\nPlease acknowledge the important notes.'); return; }
-  if (!allergen) { alert('請確認已閱讀過敏原告知。\nPlease acknowledge the allergen notice.'); return; }
-  if (!consent)  { alert('請同意授權同意條款。\nPlease agree to the consent terms.'); return; }
-  if (!diy)      { alert('請確認已閱讀 DIY 工作坊告知。\nPlease acknowledge the DIY workshop notice.'); return; }
+  if (!regData.package) { alert('請選擇方案。\nPlease select a package.'); return; }
+  if (!diy) { alert('請確認已閱讀 DIY 工作坊告知。\nPlease acknowledge the DIY workshop notice.'); return; }
   regData.email = email;
   regGoStep(2);
 });
