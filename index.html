@@ -707,7 +707,7 @@
 
           <div class="reg-field">
             <label>聯絡電話 PHONE NUMBER *</label>
-            <input type="tel" class="reg-input" id="r-phone" placeholder="0912-345-678">
+            <input type="tel" class="reg-input" id="r-phone" placeholder="0912345678" maxlength="10" inputmode="numeric">
           </div>
 
           <div class="reg-field">
@@ -1171,7 +1171,7 @@ document.getElementById('step2-next').addEventListener('click', () => {
   const transfer = document.getElementById('r-transfer').value.trim();
   const hc       = regData.headcount;
   if (!name)  { alert('請填入姓名。\nPlease enter your name.'); return; }
-  if (!phone) { alert('請填入聯絡電話。\nPlease enter your phone.'); return; }
+  if (!phone || !/^09\d{8}$/.test(phone)) { alert('請填入有效的台灣手機號碼（10碼，例如 0912345678）。\nPlease enter a valid Taiwan mobile number (10 digits).'); return; }
   if (!hc)    { alert('請選擇報名人數。\nPlease select the number of attendees.'); return; }
   if (hc === '1' && !regData.seating) { alert('請選擇座位社交偏好。\nPlease select a seating preference.'); return; }
   if (hc === '2') {
