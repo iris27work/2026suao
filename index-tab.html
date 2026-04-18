@@ -141,6 +141,7 @@
     /* Hero scroll zone */
     #scroll-zone { height: 520vh; position: relative; }
     #sticky-hero { position: sticky; top: 0; width: 100%; height: 100vh; overflow: hidden; }
+    #frame-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
     #depth-top {
       position: absolute; inset: 0;
       background:
@@ -396,7 +397,7 @@
     <li><a href="#" data-page="home"     class="active">首頁</a></li>
     <li><a href="#" data-page="program"          >活動項目</a></li>
     <li><a href="#" data-page="partners"         >合作單位</a></li>
-    <li><a href="#" data-page="sponsors"         >贊助單位</a></li>
+    <li><a href="#" data-page="sponsors"         >贊助企業</a></li>
     <li><a href="#" data-page="location"         >交通資訊</a></li>
     <li><a href="#" data-page="register"         >立即報名</a></li>
   </ul>
@@ -410,7 +411,7 @@
   <!-- Hero scroll zone -->
   <div id="scroll-zone">
     <div id="sticky-hero">
-      <video id="frame-video" src="video.mp4" muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+      <canvas id="frame-canvas"></canvas>
       <div id="glow-bloom"></div>
       <div id="depth-top"></div>
 
@@ -487,11 +488,11 @@
       <div class="ft-left">
         <img src="LOGOup.png" class="ft-logo" alt="Logo">
         <div>
-          <div class="ft-t1">2026 蘇澳漁悅季</div>
-          <div class="ft-t2">宜蘭縣蘇澳鎮漁業文化節</div>
+          <div class="ft-t1">2026蘇澳港灣漁悅季：黑鮪浪潮</div>
+          <div class="ft-t2">蘇澳港國際青年商會</div>
         </div>
       </div>
-      <div class="ft-right">© 2026 SUAO FISHING FESTIVAL</div>
+      <div class="ft-right">© 2026 ChenChuChu . All Rights Reserved .</div>
     </footer>
   </div>
 </div>
@@ -509,63 +510,82 @@
           <div class="pc-num">01</div>
           <div class="pc-name">觀光地圖</div>
           <p class="pc-desc">漁村生活圈的怡然自得，感受海洋的饋贈。</p>
-          <span class="pc-tag">🏮 漁村探索</span>
+          <span class="pc-tag"><img src="icon/指南針.png" alt="" width="20"> 漁村探索</span>
         </div>
         <div class="pc">
           <div class="pc-num">02</div>
           <div class="pc-name">魚丸DIY</div>
           <p class="pc-desc">手工魚丸的教學與體驗，感受傳統小吃的魅力。<span class="gc-hi">名額有限先報名先卡位</span>。</p>
-          <span class="pc-tag">🎨 限額 · 預約制</span>
+          <span class="pc-tag"><img src="icon/魚.png" alt="" width="20">限量DIY名額</span>
         </div>
         <div class="pc">
           <div class="pc-num">03</div>
           <div class="pc-name">競標活動</div>
           <p class="pc-desc">依照觀光地圖踩點合作商家集章。點數可用來競標晚宴的黑鮪魚大腹<span class="gc-hi">僅兩桌的大腹</span>。</p>
-          <span class="pc-tag">🚢 集章 · 競標</span>
+          <span class="pc-tag"><img src="icon/船.png" alt="" width="20"> 集章 · 競標</span>
         </div>
       </div>
     </section>
     <footer class="fade">
       <div class="ft-left">
         <img src="LOGOup.png" class="ft-logo" alt="Logo">
-        <div><div class="ft-t1">2026 蘇澳漁悅季</div><div class="ft-t2">宜蘭縣蘇澳鎮漁業文化節</div></div>
+        <div><div class="ft-t1">2026蘇澳港灣漁悅季：黑鮪浪潮</div><div class="ft-t2">蘇澳港國際青年商會</div></div>
       </div>
-      <div class="ft-right">© 2026 SUAO FISHING FESTIVAL</div>
+      <div class="ft-right">© 2026 ChenChuChu . All Rights Reserved .</div>
     </footer>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════
-     PAGE: 合作商家 + 贊助單位
+     PAGE: 合作單位
 ════════════════════════════════════════════ -->
 <div id="page-partners" class="page">
   <div class="page-inner">
+
     <section class="fade">
-      <div class="s-label">— 合作商家 PARTNERS</div>
-      <h2 class="s-title">共同參與的夥伴</h2>
+      <div class="s-label">— 主辦單位 ORGANIZER</div>
+      <h2 class="s-title">主辦單位</h2>
       <div class="mg">
-        <div class="gc" style="text-align:center;"><span class="gc-icon">🏪</span><h3 class="gc-h">商家名稱</h3><p class="gc-p">合作商家簡介說明文字。</p></div>
-        <div class="gc" style="text-align:center;"><span class="gc-icon">🏪</span><h3 class="gc-h">商家名稱</h3><p class="gc-p">合作商家簡介說明文字。</p></div>
-        <div class="gc" style="text-align:center;"><span class="gc-icon">🏪</span><h3 class="gc-h">商家名稱</h3><p class="gc-p">合作商家簡介說明文字。</p></div>
+        <a href="https://www.instagram.com/suaoharborjc?igsh=a3F2aHQxaDBjM2Rl" target="_blank" rel="noopener" class="gc" style="text-align:center;display:block;text-decoration:none;"><img src="partners/suaologo.png" alt="主辦單位" width="80"><h3 class="gc-h">蘇澳港國際青年商會</h3>
       </div>
     </section>
+
+    <section class="fade">
+      <div class="s-label">— 協力單位 CO-ORGANIZER</div>
+      <h2 class="s-title">協力單位</h2>
+      <div class="mg">
+        <div class="gc" style="text-align:center;"><span class="gc-icon">🤝</span><h3 class="gc-h">單位名稱</h3><p class="gc-p">協力單位簡介說明文字。</p></div>
+      </div>
+    </section>
+
+    <section class="fade">
+      <div class="s-label">— 合作商家 PARTNERS</div>
+      <h2 class="s-title">合作商家</h2>
+      <div class="mg">
+        <div class="gc" style="text-align:center;"><img src="素材/合作商家.png" alt="合作商家" width="80"><h3 class="gc-h">商家名稱</h3><p class="gc-p">合作商家簡介說明文字。</p></div>
+        <div class="gc" style="text-align:center;"><img src="素材/合作商家.png" alt="合作商家" width="80"><h3 class="gc-h">商家名稱</h3><p class="gc-p">合作商家簡介說明文字。</p></div>
+        <div class="gc" style="text-align:center;"><img src="素材/合作商家.png" alt="合作商家" width="80"><h3 class="gc-h">商家名稱</h3><p class="gc-p">合作商家簡介說明文字。</p></div>
+      </div>
+    </section>
+
+
     <footer class="fade">
       <div class="ft-left">
         <img src="LOGOup.png" class="ft-logo" alt="Logo">
-        <div><div class="ft-t1">2026 蘇澳漁悅季</div><div class="ft-t2">宜蘭縣蘇澳鎮漁業文化節</div></div>
+        <div><div class="ft-t1">2026蘇澳港灣漁悅季：黑鮪浪潮</div><div class="ft-t2">蘇澳港國際青年商會</div></div>
       </div>
-      <div class="ft-right">© 2026 SUAO FISHING FESTIVAL</div>
+      <div class="ft-right">© 2026 ChenChuChu . All Rights Reserved .</div>
     </footer>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════
-     PAGE: 贊助單位
+     PAGE: 贊助企業
 ════════════════════════════════════════════ -->
 <div id="page-sponsors" class="page">
   <div class="page-inner">
     <section class="fade">
-      <div class="s-label">— 贊助單位 SPONSORS</div>
+      <div class="s-label">— 贊助企業 SPONSORS</div>
       <h2 class="s-title">感謝支持</h2>
       <div class="mg">
         <div class="gc gc-glow" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;">
@@ -582,9 +602,9 @@
     <footer class="fade">
       <div class="ft-left">
         <img src="LOGOup.png" class="ft-logo" alt="Logo">
-        <div><div class="ft-t1">2026 蘇澳漁悅季</div><div class="ft-t2">宜蘭縣蘇澳鎮漁業文化節</div></div>
+        <div><div class="ft-t1">2026蘇澳港灣漁悅季：黑鮪浪潮</div><div class="ft-t2">蘇澳港國際青年商會</div></div>
       </div>
-      <div class="ft-right">© 2026 SUAO FISHING FESTIVAL</div>
+      <div class="ft-right">© 2026 ChenChuChu . All Rights Reserved .</div>
     </footer>
   </div>
 </div>
@@ -619,9 +639,9 @@
     <footer class="fade">
       <div class="ft-left">
         <img src="LOGOup.png" class="ft-logo" alt="Logo">
-        <div><div class="ft-t1">2026 蘇澳漁悅季</div><div class="ft-t2">宜蘭縣蘇澳鎮漁業文化節</div></div>
+        <div><div class="ft-t1">2026蘇澳港灣漁悅季：黑鮪浪潮</div><div class="ft-t2">蘇澳港國際青年商會</div></div>
       </div>
-      <div class="ft-right">© 2026 SUAO FISHING FESTIVAL</div>
+      <div class="ft-right">© 2026 ChenChuChu . All Rights Reserved .</div>
     </footer>
   </div>
 </div>
@@ -910,28 +930,62 @@
     <footer class="fade">
       <div class="ft-left">
         <img src="LOGOup.png" class="ft-logo" alt="Logo">
-        <div><div class="ft-t1">2026 蘇澳漁悅季</div><div class="ft-t2">宜蘭縣蘇澳鎮漁業文化節</div></div>
+        <div><div class="ft-t1">2026蘇澳港灣漁悅季：黑鮪浪潮</div><div class="ft-t2">蘇澳港國際青年商會</div></div>
       </div>
-      <div class="ft-right">© 2026 SUAO FISHING FESTIVAL</div>
+      <div class="ft-right">© 2026 ChenChuChu . All Rights Reserved .</div>
     </footer>
   </div>
 </div>
 
 <script>
 /* ============================================================
-   VIDEO SCROLL ANIMATION
+   FRAME SEQUENCE
    ============================================================ */
-const video    = document.getElementById('frame-video');
+const TOTAL = 192;
+const DIR   = 'frames/';
+
+const canvas   = document.getElementById('frame-canvas');
+const ctx      = canvas.getContext('2d');
 const bloom    = document.getElementById('glow-bloom');
 const cue      = document.getElementById('scroll-cue');
 const ldBar    = document.getElementById('ld-bar');
 const ldScreen = document.getElementById('loading');
 const progBar  = document.getElementById('scroll-progress');
 
-let videoReady = false;
+const imgs = new Array(TOTAL).fill(null);
+let loaded = 0, curF = 0, tgtF = 0, raf = null, ready = false;
+
+function resize() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  drawFrame(Math.round(curF));
+}
+window.addEventListener('resize', resize, { passive: true });
+resize();
+
+function drawFrame(i) {
+  const img = imgs[i];
+  if (!img || !img.complete) return;
+  const cw = canvas.width, ch = canvas.height;
+  const iw = img.naturalWidth, ih = img.naturalHeight;
+  const scale = Math.max(cw / iw, ch / ih);
+  const sw = iw * scale, sh = ih * scale;
+  ctx.clearRect(0, 0, cw, ch);
+  ctx.fillStyle = '#1B3045';
+  ctx.fillRect(0, 0, cw, ch);
+  ctx.drawImage(img, (cw - sw) / 2, (ch - sh) / 2, sw, sh);
+}
+
+function animLoop() {
+  const diff = tgtF - curF;
+  if (Math.abs(diff) > 0.3) { curF += diff * 0.14; drawFrame(Math.round(curF)); }
+  else { curF = tgtF; drawFrame(Math.round(curF)); }
+  raf = requestAnimationFrame(animLoop);
+}
+function stopLoop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
 
 function setBloom(p) {
-  const mid   = Math.sin(p * Math.PI);
+  const mid  = Math.sin(p * Math.PI);
   const size  = 55 + mid * 22;
   const alpha = 0.07 + mid * 0.28;
   bloom.style.background = `radial-gradient(ellipse ${size}% ${size}% at 50% ${50 + p * 12}%,rgba(232,${Math.round(109+p*18)},45,${alpha.toFixed(3)}) 0%,transparent 70%)`;
@@ -942,9 +996,7 @@ function onScroll() {
   const zone = document.getElementById('scroll-zone');
   const maxY = zone.offsetHeight - window.innerHeight;
   const p    = Math.max(0, Math.min(1, window.scrollY / maxY));
-  if (videoReady && video.duration) {
-    video.currentTime = p * video.duration;
-  }
+  tgtF = p * (TOTAL - 1);
   setBloom(p);
   cue.style.opacity = Math.max(0, 1 - window.scrollY / 160);
   const full = document.body.scrollHeight - window.innerHeight;
@@ -960,30 +1012,26 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('on-hero', !pastHero && window.scrollY < 80);
 }, { passive: true });
 
-/* Video loading progress */
-video.addEventListener('progress', () => {
-  if (!video.duration) return;
-  const buf = video.buffered;
-  if (buf.length) {
-    const pct = (buf.end(buf.length - 1) / video.duration * 100).toFixed(1);
-    ldBar.style.width = Math.min(95, pct) + '%';
+(function preload() {
+  for (let i = 0; i < TOTAL; i++) {
+    const im = new Image();
+    im.onload = () => {
+      loaded++;
+      ldBar.style.width = ((loaded / TOTAL) * 100).toFixed(1) + '%';
+      if (!ready && i === 0) drawFrame(0);
+      if (loaded === TOTAL) {
+        setTimeout(() => {
+          ldScreen.classList.add('out');
+          ready = true;
+          if (!raf) animLoop();
+        }, 350);
+      }
+    };
+    im.onerror = () => { loaded++; };
+    im.src = `${DIR}frame_${String(i).padStart(4, '0')}.jpg`;
+    imgs[i] = im;
   }
-});
-
-video.addEventListener('canplaythrough', () => {
-  ldBar.style.width = '100%';
-  videoReady = true;
-  setTimeout(() => { ldScreen.classList.add('out'); }, 350);
-});
-
-/* Fallback: if canplaythrough takes too long, just show the page */
-setTimeout(() => {
-  if (!videoReady) {
-    videoReady = true;
-    ldBar.style.width = '100%';
-    ldScreen.classList.add('out');
-  }
-}, 6000);
+})();
 
 /* ============================================================
    PAGE SWITCHING
@@ -1012,8 +1060,10 @@ function showPage(name) {
     }));
 
     if (name === 'home') {
+      if (!raf && ready) animLoop();
       nav.classList.add('on-hero');
     } else {
+      stopLoop();
       nav.classList.remove('on-hero');
     }
     currentPage = name;
