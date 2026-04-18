@@ -41,6 +41,27 @@
       transition: width .08s linear;
     }
 
+    /* ── MUSIC PLAYER ── */
+    #music-player {
+      position: fixed; bottom: 24px; right: 24px;
+      z-index: 9000;
+    }
+    #music-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 16px; border-radius: 100px;
+      background: rgba(27,48,69,.88); backdrop-filter: blur(12px);
+      border: 1px solid rgba(232,109,45,.35);
+      color: rgba(245,237,214,.7); cursor: pointer;
+      font-size: 12px; letter-spacing: 2px;
+      font-family: 'Noto Sans TC', sans-serif;
+      transition: all .3s; box-shadow: 0 4px 20px rgba(0,0,0,.3);
+    }
+    #music-btn:hover { border-color: var(--orange); color: var(--orange-lt); }
+    #music-btn.playing { border-color: var(--orange); color: var(--orange-lt); background: rgba(232,109,45,.15); }
+    #icon-pause { display: none; }
+    #music-btn.playing #icon-play { display: none; }
+    #music-btn.playing #icon-pause { display: block; }
+
     /* ── LOADING ── */
     #loading {
       position: fixed; inset: 0; z-index: 10000;
@@ -120,7 +141,6 @@
     /* Hero scroll zone */
     #scroll-zone { height: 520vh; position: relative; }
     #sticky-hero { position: sticky; top: 0; width: 100%; height: 100vh; overflow: hidden; }
-    #frame-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
     #depth-top {
       position: absolute; inset: 0;
       background:
@@ -245,9 +265,9 @@
     @keyframes regFadeIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
     .reg-section-title { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; color: var(--cream); margin-bottom: 28px; }
 
-    .reg-field { margin-bottom: 22px; }
-    .reg-field > label:first-child { display: block; font-size: 11px; letter-spacing: 4px; color: var(--orange); font-weight: 700; margin-bottom: 8px; }
-    .reg-input { width: 100%; padding: 14px 18px; background: rgba(27,48,69,.7); border: 1px solid rgba(232,109,45,.22); border-radius: 12px; color: var(--cream); font-family: 'Noto Sans TC', sans-serif; font-size: 15px; outline: none; transition: border-color .3s, box-shadow .3s; }
+    .reg-field { margin-bottom: 28px; }
+    .reg-field > label:first-child { display: block; font-size: 14px; letter-spacing: 3px; color: var(--orange); font-weight: 700; margin-bottom: 10px; }
+    .reg-input { width: 100%; padding: 16px 20px; background: rgba(27,48,69,.7); border: 1px solid rgba(232,109,45,.22); border-radius: 12px; color: var(--cream); font-family: 'Noto Sans TC', sans-serif; font-size: 18px; outline: none; transition: border-color .3s, box-shadow .3s; }
     .reg-input:focus { border-color: rgba(232,109,45,.6); box-shadow: 0 0 0 3px rgba(232,109,45,.08); }
     .reg-input::placeholder { color: rgba(245,237,214,.3); }
     .reg-input[readonly] { cursor: default; color: var(--orange-lt); }
@@ -258,42 +278,49 @@
     .pkg-card:hover { border-color: rgba(232,109,45,.5); }
     .pkg-card.selected { background: rgba(232,109,45,.12); border-color: var(--orange); box-shadow: 0 0 30px rgba(232,109,45,.12); }
     .pkg-price { font-family: 'Noto Serif TC', serif; font-size: 28px; font-weight: 900; color: var(--orange); line-height: 1; margin-bottom: 8px; }
-    .pkg-name { font-size: 13px; font-weight: 700; color: var(--cream); margin-bottom: 6px; letter-spacing: 1px; }
-    .pkg-desc { font-size: 11px; color: rgba(245,237,214,.5); line-height: 1.6; }
+    .pkg-name { font-size: 16px; font-weight: 700; color: var(--cream); margin-bottom: 6px; letter-spacing: 1px; }
+    .pkg-desc { font-size: 14px; color: rgba(245,237,214,.5); line-height: 1.6; }
+    .pkg-expand { display: none; margin-top: 14px; border-radius: 16px; overflow: hidden; background: rgba(27,48,69,.5); border: 1px solid rgba(232,109,45,.2); padding: 16px; text-align: center; }
+    .pkg-expand.show { display: block; }
+    .pkg-expand img { width: 100%; max-height: 320px; object-fit: contain; border-radius: 10px; }
+    .pkg-expand-note { font-size: 13px; color: rgba(245,237,214,.4); margin-top: 10px; }
 
-    .policy-box { background: rgba(27,48,69,.5); border: 1px solid rgba(232,109,45,.15); border-radius: 12px; padding: 18px 20px; font-size: 12px; line-height: 1.8; color: rgba(245,237,214,.5); margin-bottom: 14px; max-height: 130px; overflow-y: auto; }
+    .policy-box { background: rgba(27,48,69,.5); border: 1px solid rgba(232,109,45,.15); border-radius: 12px; padding: 18px 20px; font-size: 15px; line-height: 1.9; color: rgba(245,237,214,.55); margin-bottom: 14px; max-height: 150px; overflow-y: auto; }
     .policy-box::-webkit-scrollbar { width: 4px; }
     .policy-box::-webkit-scrollbar-thumb { background: rgba(232,109,45,.3); border-radius: 2px; }
     .reg-check { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
-    .reg-check input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--orange); margin-top: 2px; cursor: pointer; }
-    .reg-check span { font-size: 13px; color: rgba(245,237,214,.7); line-height: 1.6; }
+    .reg-check input[type="checkbox"] { width: 22px; height: 22px; flex-shrink: 0; accent-color: var(--orange); margin-top: 2px; cursor: pointer; }
+    .reg-check span { font-size: 16px; color: rgba(245,237,214,.7); line-height: 1.7; }
 
     .radio-row { display: flex; gap: 10px; flex-wrap: wrap; }
-    .radio-pill { padding: 9px 20px; border-radius: 100px; background: rgba(27,48,69,.6); border: 1px solid rgba(232,109,45,.2); color: rgba(245,237,214,.6); font-size: 13px; cursor: pointer; transition: all .3s; }
+    .radio-pill { padding: 12px 24px; border-radius: 100px; background: rgba(27,48,69,.6); border: 1px solid rgba(232,109,45,.2); color: rgba(245,237,214,.6); font-size: 16px; cursor: pointer; transition: all .3s; }
     .radio-pill.selected { background: rgba(232,109,45,.15); border-color: var(--orange); color: var(--orange-lt); }
 
     .seat-grid { display: grid; gap: 10px; }
-    .seat-card { padding: 18px 22px; border-radius: 16px; background: rgba(27,48,69,.6); border: 1.5px solid rgba(232,109,45,.18); cursor: pointer; transition: all .3s; }
+    .seat-card { padding: 20px 24px; border-radius: 16px; background: rgba(27,48,69,.6); border: 1.5px solid rgba(232,109,45,.18); cursor: pointer; transition: all .3s; }
     .seat-card:hover { border-color: rgba(232,109,45,.45); }
     .seat-card.selected { background: rgba(232,109,45,.1); border-color: var(--orange); }
-    .seat-card-title { font-size: 14px; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
-    .seat-card-sub { font-size: 12px; color: rgba(245,237,214,.45); }
+    .seat-card-title { font-size: 17px; font-weight: 700; color: var(--cream); margin-bottom: 6px; }
+    .seat-card-sub { font-size: 14px; color: rgba(245,237,214,.45); }
+
+    .cond-section { margin-top: 4px; }
+    .cond-note { font-size: 15px; color: rgba(245,237,214,.55); background: rgba(232,109,45,.07); border: 1px solid rgba(232,109,45,.18); border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; line-height: 1.7; }
 
     .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .check-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; background: rgba(27,48,69,.5); border: 1px solid rgba(232,109,45,.15); cursor: pointer; font-size: 12px; color: rgba(245,237,214,.65); transition: all .3s; user-select: none; }
-    .check-item input { accent-color: var(--orange); flex-shrink: 0; pointer-events: none; }
+    .check-item { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 10px; background: rgba(27,48,69,.5); border: 1px solid rgba(232,109,45,.15); cursor: pointer; font-size: 15px; color: rgba(245,237,214,.65); transition: all .3s; user-select: none; }
+    .check-item input { accent-color: var(--orange); flex-shrink: 0; pointer-events: none; width: 18px; height: 18px; }
     .check-item.selected { background: rgba(232,109,45,.1); border-color: rgba(232,109,45,.4); color: var(--cream); }
 
     .rating-row { display: flex; gap: 10px; }
-    .rating-btn { flex: 1; padding: 14px 0; text-align: center; border-radius: 12px; background: rgba(27,48,69,.6); border: 1px solid rgba(232,109,45,.18); color: rgba(245,237,214,.5); font-size: 15px; font-weight: 700; cursor: pointer; transition: all .3s; }
+    .rating-btn { flex: 1; padding: 16px 0; text-align: center; border-radius: 12px; background: rgba(27,48,69,.6); border: 1px solid rgba(232,109,45,.18); color: rgba(245,237,214,.5); font-size: 18px; font-weight: 700; cursor: pointer; transition: all .3s; }
     .rating-btn.selected { background: rgba(232,109,45,.2); border-color: var(--orange); color: var(--orange-lt); }
-    .rating-labels { display: flex; justify-content: space-between; margin-top: 6px; font-size: 10px; color: rgba(245,237,214,.3); letter-spacing: 1px; }
+    .rating-labels { display: flex; justify-content: space-between; margin-top: 8px; font-size: 13px; color: rgba(245,237,214,.3); letter-spacing: 1px; }
 
     .reg-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; }
     .reg-nav.end { justify-content: flex-end; }
-    .reg-btn-back { background: none; border: 1px solid rgba(232,109,45,.3); color: rgba(245,237,214,.5); padding: 12px 24px; border-radius: 100px; font-size: 13px; letter-spacing: 2px; cursor: pointer; transition: all .3s; font-family: 'Noto Sans TC', sans-serif; }
+    .reg-btn-back { background: none; border: 1px solid rgba(232,109,45,.3); color: rgba(245,237,214,.5); padding: 14px 28px; border-radius: 100px; font-size: 15px; letter-spacing: 2px; cursor: pointer; transition: all .3s; font-family: 'Noto Sans TC', sans-serif; }
     .reg-btn-back:hover { border-color: rgba(232,109,45,.6); color: var(--cream); }
-    .reg-btn-next { background: var(--orange); border: none; color: #fff; padding: 14px 32px; border-radius: 100px; font-size: 14px; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: all .3s; font-family: 'Noto Sans TC', sans-serif; box-shadow: 0 0 30px rgba(232,109,45,.3); }
+    .reg-btn-next { background: var(--orange); border: none; color: #fff; padding: 16px 36px; border-radius: 100px; font-size: 16px; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: all .3s; font-family: 'Noto Sans TC', sans-serif; box-shadow: 0 0 30px rgba(232,109,45,.3); }
     .reg-btn-next:hover { background: var(--orange-lt); box-shadow: 0 0 50px rgba(232,109,45,.5); transform: translateY(-2px); }
     .reg-btn-next:disabled { opacity: .4; cursor: not-allowed; transform: none; }
 
@@ -342,6 +369,16 @@
 
 <div id="scroll-progress"></div>
 
+<!-- ── MUSIC PLAYER ── -->
+<div id="music-player">
+  <button id="music-btn" title="播放音樂">
+    <svg id="icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg id="icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    <span id="music-label">音樂</span>
+  </button>
+  <audio id="bg-music" src="Fishing Port Stage.mp3" loop preload="auto"></audio>
+</div>
+
 <!-- ── LOADING ── -->
 <div id="loading">
   <img src="LOGOup.png" class="ld-logo" alt="蘇澳漁悅季">
@@ -358,7 +395,7 @@
   <ul class="nav-tabs">
     <li><a href="#" data-page="home"     class="active">首頁</a></li>
     <li><a href="#" data-page="program"          >活動項目</a></li>
-    <li><a href="#" data-page="partners"         >合作商家</a></li>
+    <li><a href="#" data-page="partners"         >合作單位</a></li>
     <li><a href="#" data-page="sponsors"         >贊助單位</a></li>
     <li><a href="#" data-page="location"         >交通資訊</a></li>
     <li><a href="#" data-page="register"         >立即報名</a></li>
@@ -373,7 +410,7 @@
   <!-- Hero scroll zone -->
   <div id="scroll-zone">
     <div id="sticky-hero">
-      <canvas id="frame-canvas"></canvas>
+      <video id="frame-video" src="video.mp4" muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
       <div id="glow-bloom"></div>
       <div id="depth-top"></div>
 
@@ -406,7 +443,7 @@
       <div class="mg">
         <div class="gc gc-glow gc-span2" style="display:flex;gap:36px;align-items:center;flex-wrap:wrap;">
           <div style="flex:1;min-width:220px;">
-            <span class="gc-icon">🐟</span>
+            <img src="素材/黑鮪魚.png" alt="黑鮪魚" width="200">
             <h3 class="gc-h">每年四月<br>大洋之王回家</h3>
             <p class="gc-p">
               太平洋黑鮪魚洄游季節，是蘇澳漁人最期待的時刻。牠們從深邃的大洋帶來豐收的訊息，也帶來整個港口最熱烈的歡呼聲。<br><br>
@@ -420,7 +457,7 @@
         </div>
         <div class="gc" style="display:flex;flex-direction:column;justify-content:space-between;">
           <div>
-            <span class="gc-icon">🌊</span>
+            <img src="素材/大海浪.png" alt="大海浪" width="200">
             <h3 class="gc-h">深海的味道</h3>
             <p class="gc-p">蘇澳黑鮪魚以脂肪豐富、口感細膩著稱，每一口都是<span class="gc-hi">太平洋的饋贈</span>。產季短暫，滋味永恆。</p>
           </div>
@@ -436,13 +473,12 @@
 
     <div id="strip" class="fade">
       <div class="strip-inner">
-        <div class="vtext">蘇　澳　漁　悅</div>
+        <div class="vtext">最　新　資　訊</div>
         <div class="strip-row">
-          <div class="sbadge"><div class="sbadge-em">🎣</div><div class="sbadge-h">漁港<br>體驗</div><div class="sbadge-s">FISHING PORT</div></div>
-          <div class="sbadge"><div class="sbadge-em">🍣</div><div class="sbadge-h">生魚片<br>直送</div><div class="sbadge-s">FRESH SASHIMI</div></div>
-          <div class="sbadge"><div class="sbadge-em">🌅</div><div class="sbadge-h">海上<br>日出</div><div class="sbadge-s">OCEAN SUNRISE</div></div>
-          <div class="sbadge"><div class="sbadge-em">🏮</div><div class="sbadge-h">漁火<br>夜祭</div><div class="sbadge-s">LANTERN NIGHT</div></div>
-          <div class="sbadge"><div class="sbadge-em">🎨</div><div class="sbadge-h">浮世繪<br>工作坊</div><div class="sbadge-s">ART WORKSHOP</div></div>
+          <a class="sbadge" href="https://www.instagram.com/suaoharborjc?igsh=a3F2aHQxaDBjM2Rl" target="_blank" rel="noopener"><div class="sbadge-em"><img src="icon/ins.png" alt="Instagram" width="48"></div><div class="sbadge-h">Instagram</div></a>
+          <a class="sbadge" href="https://lin.ee/WZthu1k" target="_blank" rel="noopener"><div class="sbadge-em"><img src="icon/line@.png" alt="Line@" width="48"></div><div class="sbadge-h">Line@<br>官方客服</div></a>
+          <a class="sbadge" href="https://www.facebook.com/share/14XZ8jiz14T/?mibextid=wwXIfr" target="_blank" rel="noopener"><div class="sbadge-em"><img src="icon/fb.png" alt="Facebook" width="48"></div><div class="sbadge-h">Facebook</div></a>
+          <a class="sbadge" href="mailto:suaoharbor@gmail.com" target="_blank" rel="noopener"><div class="sbadge-em"><img src="icon/mail.png" alt="Gmail" width="48"></div><div class="sbadge-h">Gmail<br>官方信箱</div></a>
         </div>
       </div>
     </div>
@@ -621,16 +657,26 @@
           <div class="reg-field">
             <label>方案選擇 PACKAGE *</label>
             <div class="pkg-grid">
-              <div class="pkg-card" data-pkg="NT$1,888 黑鮪靠港" data-amount="1888">
+              <div class="pkg-card" data-pkg="NT$1,888 黑鮪靠港" data-amount="1888" data-expand="pkg-expand-1888">
                 <div class="pkg-price">NT$1,888</div>
                 <div class="pkg-name">黑鮪靠港</div>
                 <div class="pkg-desc">晚宴 + 紀念品 ×5<br>集章競標活動</div>
               </div>
-              <div class="pkg-card" data-pkg="NT$2,000 港灣旅人" data-amount="2000">
+              <div class="pkg-card" data-pkg="NT$2,000 港灣旅人" data-amount="2000" data-expand="pkg-expand-2000">
                 <div class="pkg-price">NT$2,000</div>
                 <div class="pkg-name">港灣旅人</div>
                 <div class="pkg-desc">黑鮪靠港全包含<br>+ 魚丸 DIY 工作坊</div>
               </div>
+            </div>
+            <!-- 方案展開圖 1888 -->
+            <div class="pkg-expand" id="pkg-expand-1888">
+              <img src="" alt="黑鮪靠港 方案內容物" id="pkg-img-1888">
+              <div class="pkg-expand-note">黑鮪靠港 方案內容物一覽（圖片待更新）</div>
+            </div>
+            <!-- 方案展開圖 2000 -->
+            <div class="pkg-expand" id="pkg-expand-2000">
+              <img src="" alt="港灣旅人 方案內容物" id="pkg-img-2000">
+              <div class="pkg-expand-note">港灣旅人 方案內容物一覽（圖片待更新）</div>
             </div>
           </div>
 
@@ -647,9 +693,30 @@
               Ticket transfers allowed with 3-day notice.<br>
               Force majeure: full refund provided.
             </div>
+
+          </div>
+
+          <div class="reg-field">
+            <label>注意事項 IMPORTANT NOTES</label>
+            <div class="policy-box">123456</div>
+          </div>
+
+          <div class="reg-field">
+            <label>過敏原告知 ALLERGEN NOTICE</label>
+            <div class="policy-box">123456</div>
+          </div>
+
+          <div class="reg-field">
+            <label>授權同意 CONSENT & AUTHORIZATION</label>
+            <div class="policy-box">123456</div>
+          </div>
+
+          <div class="reg-field">
+            <label>DIY 工作坊告知 DIY WORKSHOP NOTICE</label>
+            <div class="policy-box">123456</div>
             <label class="reg-check">
-              <input type="checkbox" id="r-policy">
-              <span>我已閱讀並同意上述退費與取消政策<br><span style="font-size:11px;opacity:.7;">I have read and agree to the policy above.</span></span>
+              <input type="checkbox" id="r-diy">
+              <span>我已閱讀並了解上述注意事項事項<br><span style="font-size:13px;opacity:.7;">I have read and understood the DIY workshop information.</span></span>
             </label>
           </div>
 
@@ -669,39 +736,92 @@
 
           <div class="reg-field">
             <label>聯絡電話 PHONE NUMBER *</label>
-            <input type="tel" class="reg-input" id="r-phone" placeholder="0912-345-678">
+            <input type="tel" class="reg-input" id="r-phone" placeholder="0912345678" maxlength="10" inputmode="numeric">
           </div>
 
           <div class="reg-field">
-            <label>性別 GENDER</label>
-            <div class="radio-row" id="gender-row">
-              <div class="radio-pill" data-val="男 Male">男 Male</div>
-              <div class="radio-pill" data-val="女 Female">女 Female</div>
-              <div class="radio-pill" data-val="其他 Other">其他 Other</div>
+            <label>報名人數 NUMBER OF ATTENDEES *</label>
+            <div class="radio-row" id="headcount-row">
+              <div class="radio-pill" data-val="1">1 人</div>
+              <div class="radio-pill" data-val="2">2 人</div>
+              <div class="radio-pill" data-val="10">10 人</div>
             </div>
           </div>
 
-          <div class="reg-field">
-            <label>座位社交偏好 SEATING PREFERENCE *</label>
-            <div class="seat-grid" id="seat-grid">
-              <div class="seat-card" data-val="【外向社交桌】我想交朋友！(Extrovert / Social Table: I'm here to network!)">
-                <div class="seat-card-title">🗣 外向社交桌</div>
-                <div class="seat-card-sub">我想交朋友！Extrovert / Social Table: I'm here to network!</div>
+          <!-- 條件：1人 -->
+          <div id="section-single" class="cond-section" style="display:none;">
+            <div class="reg-field">
+              <label>生理性別 BIOLOGICAL GENDER</label>
+              <div class="radio-row" id="gender-row">
+                <div class="radio-pill" data-val="男 Male">男 Male</div>
+                <div class="radio-pill" data-val="女 Female">女 Female</div>
               </div>
-              <div class="seat-card" data-val="【內向吃飯桌】我想安靜享用美食。(Introvert / Quiet Table: I'm here for the food.)">
-                <div class="seat-card-title">🍽 內向吃飯桌</div>
-                <div class="seat-card-sub">我想安靜享用美食。Introvert / Quiet Table: I'm here for the food.</div>
+            </div>
+            <div class="reg-field">
+              <label>座位社交偏好 SEATING PREFERENCE *</label>
+              <div class="seat-grid" id="seat-grid-single">
+                <div class="seat-card" data-val="【外向社交桌】我想交朋友！(Extrovert / Social Table: I'm here to network!)">
+                  <div class="seat-card-title">🗣 外向社交桌</div>
+                  <div class="seat-card-sub">我想交朋友！Extrovert / Social Table: I'm here to network!</div>
+                </div>
+                <div class="seat-card" data-val="【內向吃飯桌】我想安靜享用美食。(Introvert / Quiet Table: I'm here for the food.)">
+                  <div class="seat-card-title">🍽 內向吃飯桌</div>
+                  <div class="seat-card-sub">我想安靜享用美食。Introvert / Quiet Table: I'm here for the food.</div>
+                </div>
+                <div class="seat-card" data-val="【相信緣分桌】隨緣安排，我都沒問題。(Destiny Seating: Open to surprises, let fate decide!)">
+                  <div class="seat-card-title">✨ 相信緣分桌</div>
+                  <div class="seat-card-sub">隨緣安排，我都沒問題。Destiny Seating: Open to surprises, let fate decide!</div>
+                </div>
               </div>
-              <div class="seat-card" data-val="【相信緣分桌】隨緣安排，我都沒問題。(Destiny Seating: Open to surprises, let fate decide!)">
-                <div class="seat-card-title">✨ 相信緣分桌</div>
-                <div class="seat-card-sub">隨緣安排，我都沒問題。Destiny Seating: Open to surprises, let fate decide!</div>
+            </div>
+          </div>
+
+          <!-- 條件：2人 -->
+          <div id="section-duo" class="cond-section" style="display:none;">
+            <div class="cond-note">👥 兩人將會安排同桌入座。<br><span style="font-size:13px;opacity:.7;">Both attendees will be seated at the same table.</span></div>
+            <div class="reg-field">
+              <label>同行朋友姓名 COMPANION NAME *</label>
+              <input type="text" class="reg-input" id="r-friend1" placeholder="朋友姓名 / Companion's name">
+            </div>
+            <div class="reg-field">
+              <label>座位社交偏好 SEATING PREFERENCE *</label>
+              <div class="seat-grid" id="seat-grid-duo">
+                <div class="seat-card" data-val="【外向社交桌】我想交朋友！(Extrovert / Social Table: I'm here to network!)">
+                  <div class="seat-card-title">🗣 外向社交桌</div>
+                  <div class="seat-card-sub">我想交朋友！Extrovert / Social Table: I'm here to network!</div>
+                </div>
+                <div class="seat-card" data-val="【內向吃飯桌】我想安靜享用美食。(Introvert / Quiet Table: I'm here for the food.)">
+                  <div class="seat-card-title">🍽 內向吃飯桌</div>
+                  <div class="seat-card-sub">我想安靜享用美食。Introvert / Quiet Table: I'm here for the food.</div>
+                </div>
+                <div class="seat-card" data-val="【相信緣分桌】隨緣安排，我都沒問題。(Destiny Seating: Open to surprises, let fate decide!)">
+                  <div class="seat-card-title">✨ 相信緣分桌</div>
+                  <div class="seat-card-sub">隨緣安排，我都沒問題。Destiny Seating: Open to surprises, let fate decide!</div>
+                </div>
               </div>
+            </div>
+          </div>
+
+          <!-- 條件：10人 -->
+          <div id="section-group" class="cond-section" style="display:none;">
+            <div class="cond-note">🎉 十人將全數安排同桌入座。<br><span style="font-size:13px;opacity:.7;">All 10 attendees will be seated together at the same table.</span></div>
+            <div class="reg-field">
+              <label>同行朋友姓名 COMPANION NAMES（2–10）*</label>
+              <input type="text" class="reg-input" id="r-friend2" placeholder="朋友 2 姓名" style="margin-bottom:10px;">
+              <input type="text" class="reg-input" id="r-friend3" placeholder="朋友 3 姓名" style="margin-bottom:10px;">
+              <input type="text" class="reg-input" id="r-friend4" placeholder="朋友 4 姓名" style="margin-bottom:10px;">
+              <input type="text" class="reg-input" id="r-friend5" placeholder="朋友 5 姓名" style="margin-bottom:10px;">
+              <input type="text" class="reg-input" id="r-friend6" placeholder="朋友 6 姓名" style="margin-bottom:10px;">
+              <input type="text" class="reg-input" id="r-friend7" placeholder="朋友 7 姓名" style="margin-bottom:10px;">
+              <input type="text" class="reg-input" id="r-friend8" placeholder="朋友 8 姓名" style="margin-bottom:10px;">
+              <input type="text" class="reg-input" id="r-friend9" placeholder="朋友 9 姓名" style="margin-bottom:10px;">
+              <input type="text" class="reg-input" id="r-friend10" placeholder="朋友 10 姓名">
             </div>
           </div>
 
           <div class="reg-field">
             <label>付款金額 PAYMENT AMOUNT</label>
-            <input type="text" class="reg-input" id="r-amount" readonly>
+            <input type="text" class="reg-input" id="r-amount" readonly placeholder="請先選擇方案與人數">
           </div>
 
           <div class="reg-field">
@@ -746,11 +866,6 @@
               <div class="rating-btn" data-val="5">5</div>
             </div>
             <div class="rating-labels"><span>普通 Neutral</span><span>非常期待 Very Excited</span></div>
-          </div>
-
-          <div class="reg-field">
-            <label>您的職業或所屬產業？PROFESSION / INDUSTRY</label>
-            <input type="text" class="reg-input" id="r-profession" placeholder="例：餐飲業、科技業、學生… / e.g. Food & Beverage, Tech, Student...">
           </div>
 
           <div class="reg-field">
@@ -804,53 +919,19 @@
 
 <script>
 /* ============================================================
-   FRAME SEQUENCE
+   VIDEO SCROLL ANIMATION
    ============================================================ */
-const TOTAL = 192;
-const DIR   = 'frames/';
-
-const canvas   = document.getElementById('frame-canvas');
-const ctx      = canvas.getContext('2d');
+const video    = document.getElementById('frame-video');
 const bloom    = document.getElementById('glow-bloom');
 const cue      = document.getElementById('scroll-cue');
 const ldBar    = document.getElementById('ld-bar');
 const ldScreen = document.getElementById('loading');
 const progBar  = document.getElementById('scroll-progress');
 
-const imgs = new Array(TOTAL).fill(null);
-let loaded = 0, curF = 0, tgtF = 0, raf = null, ready = false;
-
-function resize() {
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-  drawFrame(Math.round(curF));
-}
-window.addEventListener('resize', resize, { passive: true });
-resize();
-
-function drawFrame(i) {
-  const img = imgs[i];
-  if (!img || !img.complete) return;
-  const cw = canvas.width, ch = canvas.height;
-  const iw = img.naturalWidth, ih = img.naturalHeight;
-  const scale = Math.max(cw / iw, ch / ih);
-  const sw = iw * scale, sh = ih * scale;
-  ctx.clearRect(0, 0, cw, ch);
-  ctx.fillStyle = '#1B3045';
-  ctx.fillRect(0, 0, cw, ch);
-  ctx.drawImage(img, (cw - sw) / 2, (ch - sh) / 2, sw, sh);
-}
-
-function animLoop() {
-  const diff = tgtF - curF;
-  if (Math.abs(diff) > 0.3) { curF += diff * 0.14; drawFrame(Math.round(curF)); }
-  else { curF = tgtF; drawFrame(Math.round(curF)); }
-  raf = requestAnimationFrame(animLoop);
-}
-function stopLoop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+let videoReady = false;
 
 function setBloom(p) {
-  const mid  = Math.sin(p * Math.PI);
+  const mid   = Math.sin(p * Math.PI);
   const size  = 55 + mid * 22;
   const alpha = 0.07 + mid * 0.28;
   bloom.style.background = `radial-gradient(ellipse ${size}% ${size}% at 50% ${50 + p * 12}%,rgba(232,${Math.round(109+p*18)},45,${alpha.toFixed(3)}) 0%,transparent 70%)`;
@@ -861,7 +942,9 @@ function onScroll() {
   const zone = document.getElementById('scroll-zone');
   const maxY = zone.offsetHeight - window.innerHeight;
   const p    = Math.max(0, Math.min(1, window.scrollY / maxY));
-  tgtF = p * (TOTAL - 1);
+  if (videoReady && video.duration) {
+    video.currentTime = p * video.duration;
+  }
   setBloom(p);
   cue.style.opacity = Math.max(0, 1 - window.scrollY / 160);
   const full = document.body.scrollHeight - window.innerHeight;
@@ -869,7 +952,7 @@ function onScroll() {
 }
 window.addEventListener('scroll', onScroll, { passive: true });
 
-/* Nav transparency: transparent only while in hero scroll zone */
+/* Nav transparency */
 window.addEventListener('scroll', () => {
   if (currentPage !== 'home') return;
   const zone = document.getElementById('scroll-zone');
@@ -877,26 +960,30 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('on-hero', !pastHero && window.scrollY < 80);
 }, { passive: true });
 
-(function preload() {
-  for (let i = 0; i < TOTAL; i++) {
-    const im = new Image();
-    im.onload = () => {
-      loaded++;
-      ldBar.style.width = ((loaded / TOTAL) * 100).toFixed(1) + '%';
-      if (!ready && i === 0) drawFrame(0);
-      if (loaded === TOTAL) {
-        setTimeout(() => {
-          ldScreen.classList.add('out');
-          ready = true;
-          if (!raf) animLoop();
-        }, 350);
-      }
-    };
-    im.onerror = () => { loaded++; };
-    im.src = `${DIR}frame_${String(i).padStart(4, '0')}.jpg`;
-    imgs[i] = im;
+/* Video loading progress */
+video.addEventListener('progress', () => {
+  if (!video.duration) return;
+  const buf = video.buffered;
+  if (buf.length) {
+    const pct = (buf.end(buf.length - 1) / video.duration * 100).toFixed(1);
+    ldBar.style.width = Math.min(95, pct) + '%';
   }
-})();
+});
+
+video.addEventListener('canplaythrough', () => {
+  ldBar.style.width = '100%';
+  videoReady = true;
+  setTimeout(() => { ldScreen.classList.add('out'); }, 350);
+});
+
+/* Fallback: if canplaythrough takes too long, just show the page */
+setTimeout(() => {
+  if (!videoReady) {
+    videoReady = true;
+    ldBar.style.width = '100%';
+    ldScreen.classList.add('out');
+  }
+}, 6000);
 
 /* ============================================================
    PAGE SWITCHING
@@ -925,10 +1012,8 @@ function showPage(name) {
     }));
 
     if (name === 'home') {
-      if (!raf && ready) animLoop();
       nav.classList.add('on-hero');
     } else {
-      stopLoop();
       nav.classList.remove('on-hero');
     }
     currentPage = name;
@@ -957,7 +1042,7 @@ document.querySelectorAll('#page-home .fade').forEach(el => io.observe(el));
    REGISTER FORM LOGIC
    ============================================================ */
 // ↓ 部署 Apps Script 後把 URL 填進來
-const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyYxtPDcfdF_d8BRjJAOaSUyaMpHslvbGlm63D5czNHP8OLOIr8PwI7BhaG9i-8C9Bq/exec';
 
 let regData = {};
 
@@ -976,15 +1061,28 @@ function regGoStep(n) {
   if (pageTop) window.scrollTo({ top: pageTop.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
 }
 
+// ── 金額自動計算 ──
+function updateAmount() {
+  if (regData.packageAmount && regData.headcount) {
+    const total = parseInt(regData.packageAmount) * parseInt(regData.headcount);
+    const f = document.getElementById('r-amount');
+    if (f) f.value = 'NT$' + total.toLocaleString();
+    regData.paymentTotal = total;
+  }
+}
+
 // Package cards
 document.querySelectorAll('.pkg-card').forEach(card => {
   card.addEventListener('click', () => {
     document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('selected'));
     card.classList.add('selected');
     regData.package = card.dataset.pkg;
-    regData.amount  = card.dataset.amount;
-    const f = document.getElementById('r-amount');
-    if (f) f.value = 'NT$' + card.dataset.amount;
+    regData.packageAmount = card.dataset.amount;
+    // 展開方案圖
+    document.querySelectorAll('.pkg-expand').forEach(e => e.classList.remove('show'));
+    const expandId = card.dataset.expand;
+    if (expandId) document.getElementById(expandId).classList.add('show');
+    updateAmount();
   });
 });
 
@@ -1002,14 +1100,38 @@ initPills('gender-row',   'gender');
 initPills('prev-exp-row', 'prevExp');
 initPills('transport-row','transport');
 
-// Seating cards
-document.querySelectorAll('#seat-grid .seat-card').forEach(card => {
-  card.addEventListener('click', () => {
-    document.querySelectorAll('#seat-grid .seat-card').forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
-    regData.seating = card.dataset.val;
+// 人數選擇
+document.querySelectorAll('#headcount-row .radio-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('#headcount-row .radio-pill').forEach(p => p.classList.remove('selected'));
+    pill.classList.add('selected');
+    regData.headcount = pill.dataset.val;
+    // 顯示對應條件區塊
+    document.getElementById('section-single').style.display = 'none';
+    document.getElementById('section-duo').style.display    = 'none';
+    document.getElementById('section-group').style.display  = 'none';
+    if (pill.dataset.val === '1')  document.getElementById('section-single').style.display = 'block';
+    if (pill.dataset.val === '2')  document.getElementById('section-duo').style.display    = 'block';
+    if (pill.dataset.val === '10') document.getElementById('section-group').style.display  = 'block';
+    // 清除之前的座位選擇
+    regData.seating = '';
+    document.querySelectorAll('.seat-card').forEach(c => c.classList.remove('selected'));
+    updateAmount();
   });
 });
+
+// Seating cards（同時支援 single 和 duo）
+function initSeatGrid(gridId) {
+  document.querySelectorAll('#' + gridId + ' .seat-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('#' + gridId + ' .seat-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      regData.seating = card.dataset.val;
+    });
+  });
+}
+initSeatGrid('seat-grid-single');
+initSeatGrid('seat-grid-duo');
 
 // Rating buttons
 document.querySelectorAll('#rating-row .rating-btn').forEach(btn => {
@@ -1031,11 +1153,11 @@ document.querySelectorAll('#how-heard-grid .check-item').forEach(item => {
 
 // Step 1 → 2
 document.getElementById('step1-next').addEventListener('click', () => {
-  const email  = document.getElementById('r-email').value.trim();
-  const policy = document.getElementById('r-policy').checked;
+  const email = document.getElementById('r-email').value.trim();
+  const diy   = document.getElementById('r-diy').checked;
   if (!email || !email.includes('@')) { alert('請填入有效的電子郵件。\nPlease enter a valid email.'); return; }
-  if (!regData.package)  { alert('請選擇方案。\nPlease select a package.'); return; }
-  if (!policy)           { alert('請同意退費政策。\nPlease agree to the refund policy.'); return; }
+  if (!regData.package) { alert('請選擇方案。\nPlease select a package.'); return; }
+  if (!diy) { alert('請確認已閱讀 DIY 工作坊告知。\nPlease acknowledge the DIY workshop notice.'); return; }
   regData.email = email;
   regGoStep(2);
 });
@@ -1046,36 +1168,73 @@ document.getElementById('step2-next').addEventListener('click', () => {
   const name     = document.getElementById('r-name').value.trim();
   const phone    = document.getElementById('r-phone').value.trim();
   const transfer = document.getElementById('r-transfer').value.trim();
-  if (!name)    { alert('請填入姓名。\nPlease enter your name.'); return; }
-  if (!phone)   { alert('請填入聯絡電話。\nPlease enter your phone.'); return; }
-  if (!regData.seating) { alert('請選擇座位社交偏好。\nPlease select a seating preference.'); return; }
+  const hc       = regData.headcount;
+  if (!name)  { alert('請填入姓名。\nPlease enter your name.'); return; }
+  if (!phone || !/^09\d{8}$/.test(phone)) { alert('請填入有效的台灣手機號碼（10碼，例如 0912345678）。\nPlease enter a valid Taiwan mobile number (10 digits).'); return; }
+  if (!hc)    { alert('請選擇報名人數。\nPlease select the number of attendees.'); return; }
+  if (hc === '1' && !regData.seating) { alert('請選擇座位社交偏好。\nPlease select a seating preference.'); return; }
+  if (hc === '2') {
+    if (!document.getElementById('r-friend1').value.trim()) { alert('請填入同行朋友姓名。\nPlease enter your companion\'s name.'); return; }
+    if (!regData.seating) { alert('請選擇座位社交偏好。\nPlease select a seating preference.'); return; }
+  }
+  if (hc === '10') {
+    for (let i = 2; i <= 10; i++) {
+      if (!document.getElementById('r-friend' + i).value.trim()) { alert(`請填入朋友 ${i} 的姓名。\nPlease enter companion ${i}'s name.`); return; }
+    }
+  }
   if (!transfer || transfer.length !== 5 || isNaN(transfer)) { alert('請填入匯款末五碼（5位數字）。\nLast 5 digits of transfer required.'); return; }
   regData.name     = name;
   regData.phone    = phone;
   regData.transfer = transfer;
   regData.dietary  = document.getElementById('r-dietary').value.trim();
+  // 收集朋友姓名
+  if (hc === '2') {
+    regData.companions = document.getElementById('r-friend1').value.trim();
+  } else if (hc === '10') {
+    const names = [];
+    for (let i = 2; i <= 10; i++) names.push(document.getElementById('r-friend' + i).value.trim());
+    regData.companions = names.join('、');
+  } else {
+    regData.companions = '';
+  }
   regGoStep(3);
 });
 
 // Step 3 nav
 document.getElementById('step3-back').addEventListener('click', () => regGoStep(2));
 document.getElementById('step3-submit').addEventListener('click', () => {
+  const howHeardVal = Array.from(document.querySelectorAll('#how-heard-grid input:checked')).map(i => i.value).join('、');
+  if (!howHeardVal)          { alert('請選擇如何得知本次活動。\nPlease select how you heard about this event.'); return; }
+  if (!regData.excitement)   { alert('請選擇期待程度。\nPlease select your excitement level.'); return; }
+  if (!regData.prevExp)      { alert('請選擇是否曾參加過類似活動。\nPlease select your previous experience.'); return; }
+  if (!regData.transport)    { alert('請選擇交通方式。\nPlease select your transportation method.'); return; }
+
   const btn = document.getElementById('step3-submit');
   btn.disabled    = true;
   btn.textContent = '送出中… Submitting…';
 
-  regData.howHeard   = Array.from(document.querySelectorAll('#how-heard-grid input:checked')).map(i => i.value).join('、');
-  regData.profession = document.getElementById('r-profession').value.trim();
+  regData.howHeard = howHeardVal;
 
+  const hc = regData.headcount || '1';
   const payload = new FormData();
   Object.entries({
-    email: regData.email, package: regData.package, policy: '是',
-    packagePath: regData.amount, name: regData.name, phone: regData.phone,
-    gender: regData.gender || '', seating: regData.seating,
-    paymentAmount: 'NT$' + regData.amount, transfer: regData.transfer,
-    dietary: regData.dietary || '', howHeard: regData.howHeard,
-    excitement: regData.excitement || '', profession: regData.profession,
-    prevExp: regData.prevExp || '', transport: regData.transport || ''
+    email:         regData.email,
+    package:       regData.package,
+    headcount:     hc,
+    policy:        '是',
+    packagePath:   regData.packageAmount,
+    name:          regData.name,
+    phone:         regData.phone,
+    gender:        hc === '1' ? (regData.gender || '') : '',
+    seating:       hc !== '10' ? (regData.seating || '') : '',
+    companions:    regData.companions || '',
+    paymentAmount: 'NT$' + (regData.paymentTotal || regData.packageAmount),
+    transfer:      regData.transfer,
+    dietary:       regData.dietary || '',
+    howHeard:      regData.howHeard,
+    excitement:    regData.excitement || '',
+    prevExp:       regData.prevExp || '',
+    transport:     regData.transport || ''
   }).forEach(([k, v]) => payload.append(k, v));
 
   const finish = () => {
@@ -1087,6 +1246,30 @@ document.getElementById('step3-submit').addEventListener('click', () => {
   if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') { setTimeout(finish, 800); return; }
   fetch(APPS_SCRIPT_URL, { method: 'POST', body: payload, mode: 'no-cors' })
     .then(finish).catch(finish);
+});
+
+/* ── MUSIC PLAYER ── */
+const musicBtn  = document.getElementById('music-btn');
+const bgMusic   = document.getElementById('bg-music');
+let musicPlaying = false;
+
+function setMusicState(playing) {
+  musicPlaying = playing;
+  musicBtn.classList.toggle('playing', playing);
+  musicBtn.title = playing ? '暫停音樂' : '播放音樂';
+}
+
+/* 嘗試自動播放 */
+bgMusic.play().then(() => { setMusicState(true); }).catch(() => { setMusicState(false); });
+
+musicBtn.addEventListener('click', () => {
+  if (musicPlaying) {
+    bgMusic.pause();
+    setMusicState(false);
+  } else {
+    bgMusic.play();
+    setMusicState(true);
+  }
 });
 
 /* Nav logo glow */
