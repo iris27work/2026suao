@@ -232,13 +232,15 @@
     .sbadge-s { font-size: 10px; letter-spacing: 2px; color: var(--orange-lt); }
 
     /* ── PROGRAM ── */
-    .pg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .pg { display: grid; grid-template-columns: 1fr; gap: 14px; }
     .pc { background: rgba(27,48,69,.48); border: 1px solid rgba(232,109,45,.18); border-radius: 24px; padding: 30px 26px; transition: all .4s ease; }
     a.pc:hover { background: rgba(232,109,45,.07); border-color: rgba(232,109,45,.44); transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,.28), 0 0 40px rgba(232,109,45,.1); }
     .pc-num { font-family: 'Noto Serif TC', serif; font-size: 44px; font-weight: 900; color: rgba(232,109,45,.22); line-height: 1; margin-bottom: 18px; }
     .pc-name { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 900; color: var(--cream); margin-bottom: 10px; }
     .pc-desc { font-size: 13px; line-height: 1.75; color: rgba(245,237,214,.52); }
     .pc-tag { display: inline-block; margin-top: 18px; padding: 5px 14px; border-radius: 100px; background: rgba(232,109,45,.1); border: 1px solid rgba(232,109,45,.28); font-size: 10px; letter-spacing: 2px; color: var(--orange-lt); }
+    .pc-imgs { display: flex; gap: 8px; margin-top: 16px; }
+    .pc-imgs img { flex: 1; min-width: 0; border-radius: 12px; object-fit: contain; max-width: 400px; max-height: 500px; width: 100%; }
 
     /* ── LOCATION ── */
     .loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -345,7 +347,7 @@
     @media (max-width: 960px) {
       .mg { grid-template-columns: 1fr 1fr; }
       .gc-span2 { grid-column: span 2; }
-      .pg { grid-template-columns: 1fr 1fr; }
+      .pg { grid-template-columns: 1fr; }
       .loc-grid { grid-template-columns: 1fr; }
       #hero-bottom { grid-template-columns: 1fr; }
       .hero-tags { align-items: flex-start; }
@@ -512,6 +514,10 @@
           <div class="pc-num">01</div>
           <div class="pc-name">精美主題周邊</div>
           <p class="pc-desc">黑鮪浪潮紀念貼紙、魚魚餐具組、黑鮪浪潮明信片、特色徽章、浪花朵朵帆布袋、精美集點卡＆觀光地圖。<br>報名截止後、集章活動開始前，周邊會先寄到貴府。</p>
+          <div class="pc-imgs">
+            <img src="素材/黑鮪入港紀念品.png" alt="黑鮪入港紀念品">
+            <img src="素材/漁港旅人紀念品.png" alt="漁港旅人紀念品">
+          </div>
         </div>
         <div class="pc">
           <div class="pc-num">02</div>
@@ -522,6 +528,9 @@
           <div class="pc-num">03</div>
           <div class="pc-name">魚丸DIY</div>
           <p class="pc-desc">手工魚丸的教學與體驗，感受傳統小吃的魅力。<span class="gc-hi">名額有限先報名先卡位</span>。</p>
+          <div class="pc-imgs">
+            <img src="素材/手工魚丸.png" alt="手工魚丸DIY">
+          </div>
         </div>
         <div class="pc">
           <div class="pc-num">04</div>
@@ -537,11 +546,17 @@
           <div class="pc-num">06</div>
           <div class="pc-name">競標活動</div>
           <p class="pc-desc">依照觀光地圖踩點合作商家集章。點數可用來競標晚宴的黑鮪魚大腹<span class="gc-hi">僅兩桌的大腹</span>。</p>
+          <div class="pc-imgs">
+            <img src="素材/黑鮪魚大腹競標.png" alt="黑鮪魚大腹競標">
+          </div>
         </div>
         <div class="pc">
           <div class="pc-num">07</div>
           <div class="pc-name">黑鮪傳奇饗宴</div>
           <p class="pc-desc">全海鮮宴桌菜，結合宜蘭特色與漁港風味的新鮮美味。<span class="gc-hi">僅300席，空間限制不會加開</span>。</p>
+          <div class="pc-imgs">
+            <img src="素材/黑鮪傳奇饗宴菜單.png" alt="黑鮪傳奇饗宴菜單">
+          </div>
         </div>
       </div>
     </section>
