@@ -1881,7 +1881,7 @@ function checkRegQuota() {
   fetch(APPS_SCRIPT_URL)
     .then(r => r.json())
     .then(data => {
-      if (data.count >= 300) {
+      if (data.count >= 1) {
         document.getElementById('reg-full').style.display = 'block';
         document.getElementById('reg-form-wrap').style.display = 'none';
         const bar = document.querySelector('.reg-step-bar');
