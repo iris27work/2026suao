@@ -337,8 +337,24 @@
     .reg-btn-next:hover { background: var(--orange-lt); box-shadow: 0 0 50px rgba(232,109,45,.5); transform: translateY(-2px); }
     .reg-btn-next:disabled { opacity: .4; cursor: not-allowed; transform: none; }
 
+    /* ── FEEDBACK ── */
+    .fb-wrap { max-width: 680px; margin: 0 auto; }
+    .fb-field { margin-bottom: 32px; }
+    .fb-field > label { display: block; font-size: 14px; letter-spacing: 3px; color: var(--orange); font-weight: 700; margin-bottom: 10px; }
+    .fb-optional-label { font-size: 11px; color: rgba(245,237,214,.25); letter-spacing: 1px; margin-left: 8px; }
+    .fb-star-group { display: flex; flex-direction: column; gap: 18px; }
+    .fb-star-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: rgba(27,48,69,.4); border: 1px solid rgba(232,109,45,.12); border-radius: 16px; padding: 16px 20px; transition: border-color .3s; }
+    .fb-star-row:has(.fb-stars span.lit) { border-color: rgba(232,109,45,.3); }
+    .fb-star-name { font-size: 13px; color: rgba(245,237,214,.7); white-space: nowrap; flex-shrink: 0; min-width: 120px; }
+    .fb-stars { display: flex; gap: 3px; }
+    .fb-stars span { font-size: 26px; color: rgba(245,237,214,.12); cursor: pointer; transition: color .1s; line-height: 1; user-select: none; }
+    .fb-stars span.lit { color: var(--orange); }
+    .fb-stars span.preview { color: rgba(232,109,45,.5); }
+
     @media (max-width: 640px) {
       .pkg-grid { grid-template-columns: 1fr; }
+      .fb-star-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .fb-stars span { font-size: 22px; }
       .check-grid { grid-template-columns: 1fr; }
       .rating-row { gap: 6px; }
       .rating-btn { padding: 12px 0; font-size: 13px; }
@@ -445,6 +461,7 @@
     <li><a href="#" data-page="sponsors"         >贊助企業</a></li>
     <li><a href="#" data-page="location"         >交通資訊</a></li>
     <li><a href="#" data-page="register"         >立即報名</a></li>
+    <li id="nav-feedback-li" style="display:none;"><a href="#" data-page="feedback">活動回饋</a></li>
   </ul>
 </nav>
 
@@ -1226,6 +1243,132 @@
   </footer>
 </div>
 
+<!-- ══════════════════════════════════════════
+     PAGE: 活動回饋
+══════════════════════════════════════════ -->
+<div id="page-feedback" class="page">
+  <div class="page-inner">
+    <section class="fade">
+      <div class="s-label">— FEEDBACK —</div>
+      <h2 class="s-title">活動回饋．謝謝你的陪伴</h2>
+
+      <div class="fb-wrap">
+        <!-- 姓名 -->
+        <div class="fb-field">
+          <label>姓名 FULL NAME *</label>
+          <input type="text" class="reg-input" id="fb-name" placeholder="王小明 / Ming Wang">
+        </div>
+
+        <!-- 電子郵件 -->
+        <div class="fb-field">
+          <label>電子郵件 EMAIL *</label>
+          <input type="email" class="reg-input" id="fb-email" placeholder="your@email.com">
+        </div>
+
+        <!-- 年齡區間 -->
+        <div class="fb-field">
+          <label>年齡區間 AGE RANGE *</label>
+          <div class="radio-row" id="fb-age-row">
+            <div class="radio-pill" data-val="18歲以下">18歲以下</div>
+            <div class="radio-pill" data-val="18–25歲">18–25歲</div>
+            <div class="radio-pill" data-val="26–35歲">26–35歲</div>
+            <div class="radio-pill" data-val="36–45歲">36–45歲</div>
+            <div class="radio-pill" data-val="46–55歲">46–55歲</div>
+            <div class="radio-pill" data-val="56歲以上">56歲以上</div>
+          </div>
+        </div>
+
+        <!-- 滿意度 -->
+        <div class="fb-field">
+          <label>滿意度調查 SATISFACTION *</label>
+          <div class="fb-star-group">
+            <div class="fb-star-row">
+              <div class="fb-star-name">🍽 餐點美味度</div>
+              <div class="fb-stars" data-key="taste">
+                <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span><span data-v="6">★</span><span data-v="7">★</span><span data-v="8">★</span><span data-v="9">★</span><span data-v="10">★</span>
+              </div>
+            </div>
+            <div class="fb-star-row">
+              <div class="fb-star-name">🐟 食物新鮮度</div>
+              <div class="fb-stars" data-key="fresh">
+                <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span><span data-v="6">★</span><span data-v="7">★</span><span data-v="8">★</span><span data-v="9">★</span><span data-v="10">★</span>
+              </div>
+            </div>
+            <div class="fb-star-row">
+              <div class="fb-star-name">🎓 配套教育意義</div>
+              <div class="fb-stars" data-key="edu">
+                <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span><span data-v="6">★</span><span data-v="7">★</span><span data-v="8">★</span><span data-v="9">★</span><span data-v="10">★</span>
+              </div>
+            </div>
+            <div class="fb-star-row">
+              <div class="fb-star-name">⏰ 時間安排</div>
+              <div class="fb-stars" data-key="time">
+                <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span><span data-v="6">★</span><span data-v="7">★</span><span data-v="8">★</span><span data-v="9">★</span><span data-v="10">★</span>
+              </div>
+            </div>
+            <div class="fb-star-row">
+              <div class="fb-star-name">📍 地點便利性</div>
+              <div class="fb-stars" data-key="location">
+                <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span><span data-v="6">★</span><span data-v="7">★</span><span data-v="8">★</span><span data-v="9">★</span><span data-v="10">★</span>
+              </div>
+            </div>
+            <div class="fb-star-row">
+              <div class="fb-star-name">🙌 主辦專業與熱情</div>
+              <div class="fb-stars" data-key="host">
+                <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span><span data-v="6">★</span><span data-v="7">★</span><span data-v="8">★</span><span data-v="9">★</span><span data-v="10">★</span>
+              </div>
+            </div>
+            <div class="fb-star-row">
+              <div class="fb-star-name">📋 整體規劃滿意度</div>
+              <div class="fb-stars" data-key="overall">
+                <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span><span data-v="6">★</span><span data-v="7">★</span><span data-v="8">★</span><span data-v="9">★</span><span data-v="10">★</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 可選簡答 -->
+        <div class="fb-field">
+          <label>印象最深的環節 <span class="fb-optional-label">選填</span></label>
+          <textarea class="reg-input" id="fb-highlight" placeholder="哪個活動環節讓你印象深刻？" rows="3"></textarea>
+        </div>
+        <div class="fb-field">
+          <label>給主辦的話 <span class="fb-optional-label">選填</span></label>
+          <textarea class="reg-input" id="fb-message" placeholder="有什麼想跟主辦說的？" rows="3"></textarea>
+        </div>
+        <div class="fb-field">
+          <label>還有成長空間的細節 <span class="fb-optional-label">選填</span></label>
+          <textarea class="reg-input" id="fb-improve" placeholder="哪些地方可以更好？" rows="3"></textarea>
+        </div>
+        <div class="fb-field">
+          <label>印象深刻的小故事 <span class="fb-optional-label">選填</span></label>
+          <textarea class="reg-input" id="fb-story" placeholder="有什麼讓你很有感觸的小故事嗎？" rows="3"></textarea>
+        </div>
+
+        <button class="reg-btn-next" id="fb-submit" style="width:100%;margin-top:8px;">送出回饋 SUBMIT</button>
+
+        <!-- 成功畫面 -->
+        <div id="fb-success" style="display:none;text-align:center;padding:80px 0;">
+          <div style="font-size:56px;margin-bottom:24px;">🙏</div>
+          <h3 style="font-family:'Noto Serif TC',serif;font-size:26px;color:var(--cream);margin-bottom:12px;">謝謝你的回饋</h3>
+          <p style="color:rgba(245,237,214,.5);font-size:14px;">你的意見是我們持續進步的動力。</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="fade">
+      <div class="ft-left">
+        <img src="LOGOup.png" class="ft-logo" alt="Logo">
+        <div>
+          <div class="ft-t1">2026蘇澳港灣漁悅季：黑鮪浪潮</div>
+          <div class="ft-t2">蘇澳港國際青年商會</div>
+        </div>
+      </div>
+      <div class="ft-right"><span>© 2026 ChenChuChu . All Rights Reserved .</span><div class="ft-links"><span class="ft-link" onclick="openLegal('tos')">服務條款</span><span class="ft-link" onclick="openLegal('pp')">隱私權政策</span></div></div>
+    </footer>
+  </div>
+</div>
+
 <script>
 /* ============================================================
    FRAME SEQUENCE
@@ -1382,6 +1525,8 @@ document.querySelectorAll('#page-home .fade').forEach(el => io.observe(el));
    ============================================================ */
 // ↓ 部署 Apps Script 後把 URL 填進來
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyYxtPDcfdF_d8BRjJAOaSUyaMpHslvbGlm63D5czNHP8OLOIr8PwI7BhaG9i-8C9Bq/exec';
+const FEEDBACK_APPS_SCRIPT_URL = 'YOUR_FEEDBACK_APPS_SCRIPT_URL_HERE';
+const FEEDBACK_OPEN = true;
 
 let regData = {};
 
@@ -1722,6 +1867,85 @@ window.addEventListener('scroll', () => {
 </div>
 
 <script>
+// Feedback open/close
+if (FEEDBACK_OPEN) {
+  document.getElementById('nav-feedback-li').style.display = '';
+}
+
+// Star ratings
+const fbRatings = {};
+document.querySelectorAll('.fb-stars').forEach(stars => {
+  const key = stars.dataset.key;
+  fbRatings[key] = 0;
+  const spans = stars.querySelectorAll('span');
+  spans.forEach(span => {
+    span.addEventListener('mouseenter', () => {
+      const v = +span.dataset.v;
+      spans.forEach(s => {
+        const sv = +s.dataset.v;
+        s.classList.remove('lit', 'preview');
+        if (sv <= fbRatings[key]) s.classList.add('lit');
+        else if (sv <= v) s.classList.add('preview');
+      });
+    });
+    span.addEventListener('click', () => {
+      fbRatings[key] = +span.dataset.v;
+      spans.forEach(s => {
+        s.classList.remove('lit', 'preview');
+        if (+s.dataset.v <= fbRatings[key]) s.classList.add('lit');
+      });
+    });
+  });
+  stars.addEventListener('mouseleave', () => {
+    spans.forEach(s => {
+      s.classList.remove('lit', 'preview');
+      if (+s.dataset.v <= fbRatings[key]) s.classList.add('lit');
+    });
+  });
+});
+
+// Age pills
+initPills('fb-age-row', 'fbAge');
+
+// Feedback submit
+document.getElementById('fb-submit').addEventListener('click', () => {
+  const name  = document.getElementById('fb-name').value.trim();
+  const email = document.getElementById('fb-email').value.trim();
+  if (!name)  { alert('請填寫姓名。'); return; }
+  if (!email) { alert('請填寫電子郵件。'); return; }
+  if (!regData.fbAge) { alert('請選擇年齡區間。'); return; }
+  const ratingKeys = ['taste','fresh','edu','time','location','host','overall'];
+  for (const k of ratingKeys) {
+    if (!fbRatings[k]) { alert('請完成所有滿意度評分。'); return; }
+  }
+  const btn = document.getElementById('fb-submit');
+  btn.disabled = true; btn.textContent = '送出中…';
+  const payload = new FormData();
+  Object.entries({
+    name, email,
+    age:      regData.fbAge,
+    taste:    fbRatings.taste,
+    fresh:    fbRatings.fresh,
+    edu:      fbRatings.edu,
+    time:     fbRatings.time,
+    location: fbRatings.location,
+    host:     fbRatings.host,
+    overall:  fbRatings.overall,
+    highlight: document.getElementById('fb-highlight').value.trim(),
+    message:   document.getElementById('fb-message').value.trim(),
+    improve:   document.getElementById('fb-improve').value.trim(),
+    story:     document.getElementById('fb-story').value.trim(),
+  }).forEach(([k, v]) => payload.append(k, v));
+  const done = () => {
+    document.getElementById('fb-submit').style.display = 'none';
+    document.querySelectorAll('.fb-field').forEach(f => f.style.display = 'none');
+    document.getElementById('fb-success').style.display = 'block';
+  };
+  if (FEEDBACK_APPS_SCRIPT_URL === 'YOUR_FEEDBACK_APPS_SCRIPT_URL_HERE') { setTimeout(done, 600); return; }
+  fetch(FEEDBACK_APPS_SCRIPT_URL, { method: 'POST', body: payload, mode: 'no-cors' })
+    .then(done).catch(done);
+});
+
 // Hamburger menu
 const burger = document.getElementById('nav-burger');
 const navTabs = document.getElementById('nav-tabs');
