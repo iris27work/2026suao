@@ -325,6 +325,10 @@
     .check-item.selected { background: rgba(232,109,45,.1); border-color: rgba(232,109,45,.4); color: var(--cream); }
 
     .rating-row { display: flex; gap: 10px; }
+    .split-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .split-row .reg-input { flex: 1; margin: 0; }
+    .split-seat-group { display: flex; gap: 6px; flex-shrink: 0; }
+    .split-seat-group .radio-pill { padding: 8px 12px; font-size: 13px; }
     .rating-btn { flex: 1; padding: 16px 0; text-align: center; border-radius: 12px; background: rgba(27,48,69,.6); border: 1px solid rgba(232,109,45,.18); color: rgba(245,237,214,.5); font-size: 18px; font-weight: 700; cursor: pointer; transition: all .3s; }
     .rating-btn.selected { background: rgba(232,109,45,.2); border-color: var(--orange); color: var(--orange-lt); }
     .rating-labels { display: flex; justify-content: space-between; margin-top: 8px; font-size: 13px; color: rgba(245,237,214,.3); letter-spacing: 1px; }
@@ -915,14 +919,14 @@
           <div class="reg-field">
             <label>方案選擇 PACKAGE *</label>
             <div class="pkg-grid">
-              <div class="pkg-card" data-pkg="NT$1,888 黑鮪靠港" data-amount="1888" data-expand="pkg-expand-1888">
+              <div class="pkg-card" data-pkg="NT$1,888 黑鮪入港" data-amount="1888" data-expand="pkg-expand-1888">
                 <div class="pkg-price">NT$1,888</div>
                 <div class="pkg-name">黑鮪入港</div>
                 <div class="pkg-desc">黑鮪傳奇饗宴 + 紀念品 ×5<br>集章競標活動</div>
               </div>
-              <div class="pkg-card" data-pkg="NT$2,000 港灣旅人" data-amount="2000" data-expand="pkg-expand-2000">
+              <div class="pkg-card" data-pkg="NT$2,000 漁港旅人" data-amount="2000" data-expand="pkg-expand-2000">
                 <div class="pkg-price">NT$2,000</div>
-                <div class="pkg-name">港灣旅人</div>
+                <div class="pkg-name">漁港旅人</div>
                 <div class="pkg-desc">黑鮪入港全包含<br>+ 手工魚丸DIY</div>
               </div>
             </div>
@@ -930,11 +934,23 @@
             <div class="pkg-expand" id="pkg-expand-1888">
               <img src="素材/黑鮪入港紀念品.png" alt="黑鮪入港 方案內容物" id="pkg-img-1888">
               <div class="pkg-expand-note">黑鮪入港 方案內容物一覽</div>
+              <div style="margin-top:16px;text-align:left;">
+                <div style="font-size:13px;color:rgba(245,237,214,.6);margin-bottom:10px;">加購選項（非必填）</div>
+                <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;cursor:pointer;font-size:14px;">
+                  <input type="checkbox" id="addon-tour" style="accent-color:#e86d2d;width:16px;height:16px;"> 加購 $300 走讀
+                </label>
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;">
+                  <input type="checkbox" id="addon-diy" style="accent-color:#e86d2d;width:16px;height:16px;"> 加購 $500 魚丸DIY
+                </label>
+                <div id="addon-upsell" style="display:none;margin-top:12px;padding:10px 14px;background:rgba(232,109,45,.15);border-radius:8px;font-size:13px;color:#e8c97a;">
+                  💡 2000 漁港旅人方案兩者都有含！比較划算
+                </div>
+              </div>
             </div>
             <!-- 方案展開圖 2000 -->
             <div class="pkg-expand" id="pkg-expand-2000">
-              <img src="素材/漁港旅人紀念品.png" alt="港灣旅人 方案內容物" id="pkg-img-2000">
-              <div class="pkg-expand-note">港灣旅人 方案內容物一覽</div>
+              <img src="素材/漁港旅人紀念品.png" alt="漁港旅人 方案內容物" id="pkg-img-2000">
+              <div class="pkg-expand-note">漁港旅人 方案內容物一覽</div>
             </div>
           </div>
 
@@ -980,8 +996,8 @@
           </div>
 
           <div class="reg-field">
-            <label>DIY 工作坊告知 DIY WORKSHOP NOTICE</label>
-            <div class="policy-box">參與 2000 元方案之「手工魚丸 DIY」者，請準時於指定場次報到。逾時 15 分鐘未到者視同放棄體驗資格。</div>
+            <label>體驗告知 EXPERIENCE NOTICE</label>
+            <div class="policy-box">請準時於指定場次報到。逾時 15 分鐘未到者視同放棄體驗資格。</div>
             <label class="reg-check">
               <input type="checkbox" id="r-diy">
               <span>已閱讀並同意上述事項<br><span style="font-size:13px;opacity:.7;">I have read and understood the DIY workshop information.</span></span>
@@ -996,6 +1012,29 @@
         <!-- ── STEP 2: 個人資料 ── -->
         <div id="reg-step-2" class="reg-panel" style="display:none;">
           <div class="reg-section-title">個人資料<br><span style="font-size:14px;font-weight:400;color:rgba(245,237,214,.45);">Personal Information</span></div>
+
+          <!-- 合作單位資格（1888 限定，非必填） -->
+          <div class="reg-field" id="partner-qual-field" style="display:none;">
+            <label>合作單位資格（非必填）</label>
+            <div class="check-grid" id="partner-qual-grid">
+              <label class="check-item"><input type="radio" name="partner-qual" id="pq-public" value="民眾"> 民眾</label>
+              <label class="check-item"><input type="radio" name="partner-qual" id="pq-jaycees" value="青商會"> 青商會</label>
+              <label class="check-item"><input type="radio" name="partner-qual" id="pq-partner-org" value="合作商家"> 合作商家</label>
+              <label class="check-item"><input type="radio" name="partner-qual" id="pq-sponsor-org" value="贊助單位"> 贊助單位</label>
+            </div>
+            <div id="pq-unit-field" style="display:none;margin-top:16px;">
+              <label>隸屬於哪個單位（請填單位名）*</label>
+              <input type="text" class="reg-input" id="pq-unit" placeholder="請填寫單位名稱" style="margin-top:8px;">
+              <div class="cond-note" style="margin-top:8px;">謝謝合作單位的包桌支持！</div>
+            </div>
+            <div id="pq-jaycees-ext" style="display:none;margin-top:16px;">
+              <div class="policy-box">若貴會會長有出席，侃達會長有安排招待桌，無需列入下述同行名單內，可再補位一人、無人選亦可於姓名處鍵入 0 示意。</div>
+              <div style="margin-top:12px;">
+                <label>若貴會會長出席，請留下會長姓名（無則留空）</label>
+                <input type="text" class="reg-input" id="pq-president" placeholder="會長姓名" style="margin-top:8px;">
+              </div>
+            </div>
+          </div>
 
           <div class="reg-field">
             <label>姓名 FULL NAME *</label>
@@ -1030,6 +1069,27 @@
             </div>
           </div>
 
+          <div class="reg-field" id="tour-slot-field" style="display:none;">
+            <label>走讀時段選擇 * <span style="font-size:12px;color:rgba(245,237,214,.45);">二選一</span></label>
+            <div class="check-grid" id="tour-slots">
+              <div class="check-item" data-val="13:45"><input type="checkbox"> 13:45</div>
+              <div class="check-item" data-val="15:45"><input type="checkbox"> 15:45</div>
+            </div>
+          </div>
+
+          <div class="reg-field" id="diy-slot-1888-field" style="display:none;">
+            <label>手工魚丸 DIY 時段選擇 * <span style="font-size:12px;color:rgba(245,237,214,.45);">請選擇 2 個場次</span></label>
+            <div class="cond-note">每場次約 45 分鐘，每人需選擇 2 個時段備用（主辦依人數安排其中一場）。</div>
+            <div class="check-grid" id="diy-slots-1888">
+              <div class="check-item" data-val="11:15"><input type="checkbox"> 11:15</div>
+              <div class="check-item" data-val="12:15"><input type="checkbox"> 12:15</div>
+              <div class="check-item" data-val="13:15"><input type="checkbox"> 13:15</div>
+              <div class="check-item" data-val="14:15"><input type="checkbox"> 14:15</div>
+              <div class="check-item" data-val="15:15"><input type="checkbox"> 15:15</div>
+              <div class="check-item" data-val="16:15"><input type="checkbox"> 16:15</div>
+            </div>
+          </div>
+
           <div class="reg-field">
             <label>報名人數 NUMBER OF ATTENDEES *</label>
             <div class="radio-row" id="headcount-row">
@@ -1037,6 +1097,7 @@
               <div class="radio-pill" data-val="2">2 人</div>
               <div class="radio-pill" data-val="10">10 人</div>
             </div>
+            <div id="headcount-locked" style="display:none;margin-top:10px;font-size:14px;color:rgba(245,237,214,.7);">報名人數：10 人（合作單位固定）</div>
           </div>
 
           <!-- 條件：1人 -->
@@ -1102,24 +1163,61 @@
 
           <!-- 條件：10人 -->
           <div id="section-group" class="cond-section" style="display:none;">
-            <div class="cond-note">🎉 十人將全數安排同桌入座。<br><span style="font-size:13px;opacity:.7;">All 10 attendees will be seated together at the same table.</span></div>
-            <div class="reg-field">
-              <label>同行朋友姓名 COMPANION NAMES（2–10）*</label>
-              <input type="text" class="reg-input" id="r-friend2" placeholder="朋友 2 姓名" style="margin-bottom:10px;">
-              <input type="text" class="reg-input" id="r-friend3" placeholder="朋友 3 姓名" style="margin-bottom:10px;">
-              <input type="text" class="reg-input" id="r-friend4" placeholder="朋友 4 姓名" style="margin-bottom:10px;">
-              <input type="text" class="reg-input" id="r-friend5" placeholder="朋友 5 姓名" style="margin-bottom:10px;">
-              <input type="text" class="reg-input" id="r-friend6" placeholder="朋友 6 姓名" style="margin-bottom:10px;">
-              <input type="text" class="reg-input" id="r-friend7" placeholder="朋友 7 姓名" style="margin-bottom:10px;">
-              <input type="text" class="reg-input" id="r-friend8" placeholder="朋友 8 姓名" style="margin-bottom:10px;">
-              <input type="text" class="reg-input" id="r-friend9" placeholder="朋友 9 姓名" style="margin-bottom:10px;">
-              <input type="text" class="reg-input" id="r-friend10" placeholder="朋友 10 姓名">
+            <div id="group-note" class="cond-note">🎉 十人將全數安排同桌入座。<br><span style="font-size:13px;opacity:.7;">All 10 attendees will be seated together at the same table.</span></div>
+
+            <!-- 合作單位：座位安排方式（勾選合作單位資格時顯示） -->
+            <div id="group-seating-choice" style="display:none;">
+              <div class="reg-field" style="margin-bottom:8px;">
+                <label>座位安排方式 *</label>
+                <div class="radio-row" id="group-seating-mode">
+                  <div class="radio-pill" data-val="會內同坐">會內同坐</div>
+                  <div class="radio-pill" data-val="分開入席">分開入席</div>
+                </div>
+              </div>
             </div>
+
+            <!-- 一般同行名單 -->
+            <div id="group-companions-normal">
+              <div class="reg-field">
+                <label>同行朋友姓名 COMPANION NAMES（2–10）*</label>
+                <input type="text" class="reg-input" id="r-friend2" placeholder="朋友 2 姓名" style="margin-bottom:10px;">
+                <input type="text" class="reg-input" id="r-friend3" placeholder="朋友 3 姓名" style="margin-bottom:10px;">
+                <input type="text" class="reg-input" id="r-friend4" placeholder="朋友 4 姓名" style="margin-bottom:10px;">
+                <input type="text" class="reg-input" id="r-friend5" placeholder="朋友 5 姓名" style="margin-bottom:10px;">
+                <input type="text" class="reg-input" id="r-friend6" placeholder="朋友 6 姓名" style="margin-bottom:10px;">
+                <input type="text" class="reg-input" id="r-friend7" placeholder="朋友 7 姓名" style="margin-bottom:10px;">
+                <input type="text" class="reg-input" id="r-friend8" placeholder="朋友 8 姓名" style="margin-bottom:10px;">
+                <input type="text" class="reg-input" id="r-friend9" placeholder="朋友 9 姓名" style="margin-bottom:10px;">
+                <input type="text" class="reg-input" id="r-friend10" placeholder="朋友 10 姓名">
+              </div>
+            </div>
+
+            <!-- 分開入席：每人姓名 + 座位偏好 -->
+            <div id="group-companions-split" style="display:none;">
+              <div class="reg-field">
+                <label>同行朋友姓名與座位偏好（2–10）*</label>
+                <div style="font-size:12px;color:rgba(245,237,214,.45);margin-bottom:12px;">左填姓名，右選座位偏好</div>
+                <div class="split-row"><input type="text" class="reg-input split-name" id="r-split-name2" placeholder="朋友 2 姓名"><div class="split-seat-group" data-friend="2"><div class="radio-pill split-seat" data-val="外向">外向</div><div class="radio-pill split-seat" data-val="內向">內向</div><div class="radio-pill split-seat" data-val="隨緣">隨緣</div></div></div>
+                <div class="split-row"><input type="text" class="reg-input split-name" id="r-split-name3" placeholder="朋友 3 姓名"><div class="split-seat-group" data-friend="3"><div class="radio-pill split-seat" data-val="外向">外向</div><div class="radio-pill split-seat" data-val="內向">內向</div><div class="radio-pill split-seat" data-val="隨緣">隨緣</div></div></div>
+                <div class="split-row"><input type="text" class="reg-input split-name" id="r-split-name4" placeholder="朋友 4 姓名"><div class="split-seat-group" data-friend="4"><div class="radio-pill split-seat" data-val="外向">外向</div><div class="radio-pill split-seat" data-val="內向">內向</div><div class="radio-pill split-seat" data-val="隨緣">隨緣</div></div></div>
+                <div class="split-row"><input type="text" class="reg-input split-name" id="r-split-name5" placeholder="朋友 5 姓名"><div class="split-seat-group" data-friend="5"><div class="radio-pill split-seat" data-val="外向">外向</div><div class="radio-pill split-seat" data-val="內向">內向</div><div class="radio-pill split-seat" data-val="隨緣">隨緣</div></div></div>
+                <div class="split-row"><input type="text" class="reg-input split-name" id="r-split-name6" placeholder="朋友 6 姓名"><div class="split-seat-group" data-friend="6"><div class="radio-pill split-seat" data-val="外向">外向</div><div class="radio-pill split-seat" data-val="內向">內向</div><div class="radio-pill split-seat" data-val="隨緣">隨緣</div></div></div>
+                <div class="split-row"><input type="text" class="reg-input split-name" id="r-split-name7" placeholder="朋友 7 姓名"><div class="split-seat-group" data-friend="7"><div class="radio-pill split-seat" data-val="外向">外向</div><div class="radio-pill split-seat" data-val="內向">內向</div><div class="radio-pill split-seat" data-val="隨緣">隨緣</div></div></div>
+                <div class="split-row"><input type="text" class="reg-input split-name" id="r-split-name8" placeholder="朋友 8 姓名"><div class="split-seat-group" data-friend="8"><div class="radio-pill split-seat" data-val="外向">外向</div><div class="radio-pill split-seat" data-val="內向">內向</div><div class="radio-pill split-seat" data-val="隨緣">隨緣</div></div></div>
+                <div class="split-row"><input type="text" class="reg-input split-name" id="r-split-name9" placeholder="朋友 9 姓名"><div class="split-seat-group" data-friend="9"><div class="radio-pill split-seat" data-val="外向">外向</div><div class="radio-pill split-seat" data-val="內向">內向</div><div class="radio-pill split-seat" data-val="隨緣">隨緣</div></div></div>
+                <div class="split-row"><input type="text" class="reg-input split-name" id="r-split-name10" placeholder="朋友 10 姓名"><div class="split-seat-group" data-friend="10"><div class="radio-pill split-seat" data-val="外向">外向</div><div class="radio-pill split-seat" data-val="內向">內向</div><div class="radio-pill split-seat" data-val="隨緣">隨緣</div></div></div>
+              </div>
+            </div>
+
             <div class="reg-field">
               <label>收據是否要分開開立？SEPARATE RECEIPTS?</label>
               <div class="radio-row" id="receipt-group-row">
                 <div class="radio-pill" data-val="是">是</div>
                 <div class="radio-pill" data-val="否">否</div>
+              </div>
+              <div id="tax-id-field" style="display:none;margin-top:12px;">
+                <label>需要統編請輸入</label>
+                <input type="text" class="reg-input" id="r-tax-id" placeholder="統一編號（選填）" style="margin-top:8px;" maxlength="8" inputmode="numeric">
               </div>
             </div>
           </div>
@@ -1570,7 +1668,8 @@ function regGoStep(n) {
 // ── 金額自動計算 ──
 function updateAmount() {
   if (regData.packageAmount && regData.headcount) {
-    const total = parseInt(regData.packageAmount) * parseInt(regData.headcount);
+    const base = parseInt(regData.packageAmount) + (regData.addonAmount || 0);
+    const total = base * parseInt(regData.headcount) - Number(regData.partnerDiscount || 0);
     const f = document.getElementById('r-amount');
     if (f) f.value = 'NT$' + total.toLocaleString();
     regData.paymentTotal = total;
@@ -1588,8 +1687,29 @@ document.querySelectorAll('.pkg-card').forEach(card => {
     document.querySelectorAll('.pkg-expand').forEach(e => e.classList.remove('show'));
     const expandId = card.dataset.expand;
     if (expandId) document.getElementById(expandId).classList.add('show');
-    // 顯示/隱藏 DIY 時段
-    document.getElementById('diy-slot-field').style.display = card.dataset.amount === '2000' ? '' : 'none';
+    // 重置 1888 加購狀態
+    regData.addonAmount = 0;
+    regData.addonTour = false;
+    regData.addonDiy = false;
+    const addonTourEl = document.getElementById('addon-tour');
+    const addonDiyEl  = document.getElementById('addon-diy');
+    if (addonTourEl) addonTourEl.checked = false;
+    if (addonDiyEl)  addonDiyEl.checked  = false;
+    const upsell = document.getElementById('addon-upsell');
+    if (upsell) upsell.style.display = 'none';
+    document.getElementById('diy-slot-1888-field').style.display  = 'none';
+    // 顯示/隱藏 2000 時段
+    document.getElementById('diy-slot-field').style.display  = card.dataset.amount === '2000' ? '' : 'none';
+    document.getElementById('tour-slot-field').style.display = card.dataset.amount === '2000' ? '' : 'none';
+    // 清除走讀時段選擇
+    regData.tourSlot = '';
+    document.querySelectorAll('#tour-slots .check-item').forEach(i => {
+      i.classList.remove('selected');
+      i.querySelector('input').checked = false;
+    });
+    // 合作單位資格欄位（1888 限定）
+    document.getElementById('partner-qual-field').style.display = card.dataset.amount === '1888' ? '' : 'none';
+    if (card.dataset.amount !== '1888') resetPartnerQual();
     updateAmount();
   });
 });
@@ -1609,6 +1729,126 @@ document.querySelectorAll('#diy-slots .check-item').forEach(item => {
   });
 });
 
+// 1888 加購魚丸DIY 時段 check-item（六選二）
+document.querySelectorAll('#diy-slots-1888 .check-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const selected = document.querySelectorAll('#diy-slots-1888 .check-item.selected');
+    if (item.classList.contains('selected')) {
+      item.classList.remove('selected');
+      item.querySelector('input').checked = false;
+    } else {
+      if (selected.length >= 2) { alert('最多選擇 2 個時段。'); return; }
+      item.classList.add('selected');
+      item.querySelector('input').checked = true;
+    }
+  });
+});
+
+// 1888 走讀時段 check-item（二選一）
+document.querySelectorAll('#tour-slots .check-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('#tour-slots .check-item').forEach(i => {
+      i.classList.remove('selected');
+      i.querySelector('input').checked = false;
+    });
+    item.classList.add('selected');
+    item.querySelector('input').checked = true;
+    regData.tourSlot = item.dataset.val;
+  });
+});
+
+// 1888 加購 checkbox
+function updateAddonState() {
+  const tourChecked = document.getElementById('addon-tour').checked;
+  const diyChecked  = document.getElementById('addon-diy').checked;
+  document.getElementById('addon-upsell').style.display       = (tourChecked || diyChecked) ? '' : 'none';
+  document.getElementById('tour-slot-field').style.display     = tourChecked ? '' : 'none';
+  document.getElementById('diy-slot-1888-field').style.display = diyChecked  ? '' : 'none';
+  regData.addonTour   = tourChecked;
+  regData.addonDiy    = diyChecked;
+  regData.addonAmount = (tourChecked ? 300 : 0) + (diyChecked ? 500 : 0);
+  updateAmount();
+}
+document.getElementById('addon-tour').addEventListener('change', updateAddonState);
+document.getElementById('addon-diy').addEventListener('change', updateAddonState);
+
+// ── 合作單位資格 ──
+function resetPartnerQual() {
+  document.querySelectorAll('#partner-qual-grid input[name="partner-qual"]').forEach(el => { el.checked = false; });
+  document.getElementById('pq-unit-field').style.display    = 'none';
+  document.getElementById('pq-jaycees-ext').style.display   = 'none';
+  document.getElementById('group-seating-choice').style.display = 'none';
+  document.getElementById('group-companions-normal').style.display = '';
+  document.getElementById('group-companions-split').style.display  = 'none';
+  document.getElementById('headcount-row').style.display    = '';
+  document.getElementById('headcount-locked').style.display = 'none';
+  regData.partnerQual      = '';
+  regData.partnerDiscount  = 0;
+  regData.partnerUnit      = '';
+  regData.presidentName    = '';
+  regData.groupSeatingMode = '';
+  updateAmount();
+}
+
+function updatePartnerQual() {
+  const selectedEl = document.querySelector('#partner-qual-grid input[name="partner-qual"]:checked');
+  const anyChecked = selectedEl && selectedEl.value !== '民眾';
+  const jaycees    = selectedEl && selectedEl.value === '青商會';
+
+  document.getElementById('pq-unit-field').style.display  = anyChecked ? '' : 'none';
+  document.getElementById('pq-jaycees-ext').style.display = jaycees   ? '' : 'none';
+
+  if (anyChecked) {
+    document.getElementById('headcount-row').style.display    = 'none';
+    document.getElementById('headcount-locked').style.display = '';
+    document.querySelectorAll('#headcount-row .radio-pill').forEach(p => p.classList.remove('selected'));
+    regData.headcount       = '10';
+    regData.partnerDiscount = 880;
+    regData.partnerQual     = selectedEl.value;
+    document.getElementById('section-single').style.display       = 'none';
+    document.getElementById('section-duo').style.display          = 'none';
+    document.getElementById('section-group').style.display        = 'block';
+    document.getElementById('group-seating-choice').style.display = '';
+    document.getElementById('group-note').style.display           = 'none';
+  } else {
+    document.getElementById('headcount-row').style.display        = '';
+    document.getElementById('headcount-locked').style.display     = 'none';
+    document.getElementById('section-group').style.display        = 'none';
+    document.getElementById('group-seating-choice').style.display = 'none';
+    document.getElementById('group-note').style.display           = '';
+    regData.headcount       = '';
+    regData.partnerDiscount = 0;
+    regData.partnerQual     = '';
+  }
+  updateAmount();
+}
+
+document.querySelectorAll('#partner-qual-grid input[name="partner-qual"]').forEach(el => {
+  el.addEventListener('change', updatePartnerQual);
+});
+
+// 座位安排方式
+document.querySelectorAll('#group-seating-mode .radio-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('#group-seating-mode .radio-pill').forEach(p => p.classList.remove('selected'));
+    pill.classList.add('selected');
+    regData.groupSeatingMode = pill.dataset.val;
+    const isSplit = pill.dataset.val === '分開入席';
+    document.getElementById('group-companions-normal').style.display = isSplit ? 'none' : '';
+    document.getElementById('group-companions-split').style.display  = isSplit ? '' : 'none';
+  });
+});
+
+// 分開入席：每人座位偏好
+document.querySelectorAll('.split-seat-group').forEach(group => {
+  group.querySelectorAll('.split-seat').forEach(pill => {
+    pill.addEventListener('click', () => {
+      group.querySelectorAll('.split-seat').forEach(p => p.classList.remove('selected'));
+      pill.classList.add('selected');
+    });
+  });
+});
+
 // Generic radio pill groups
 function initPills(containerId, key) {
   document.querySelectorAll('#' + containerId + ' .radio-pill').forEach(pill => {
@@ -1624,6 +1864,12 @@ initPills('prev-exp-row',     'prevExp');
 initPills('transport-row',    'transport');
 initPills('receipt-duo-row',  'receipt');
 initPills('receipt-group-row','receipt');
+document.querySelectorAll('#receipt-group-row .radio-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const isPartner = regData.partnerQual && regData.partnerQual !== '民眾';
+    document.getElementById('tax-id-field').style.display = (isPartner && pill.dataset.val === '否') ? '' : 'none';
+  });
+});
 
 // 人數選擇
 document.querySelectorAll('#headcount-row .radio-pill').forEach(pill => {
@@ -1678,9 +1924,12 @@ document.querySelectorAll('#how-heard-grid .check-item').forEach(item => {
 
 // Step 1 → 2
 document.getElementById('step1-next').addEventListener('click', () => {
-  const diy = document.getElementById('r-diy').checked;
   if (!regData.package) { alert('請選擇方案。\nPlease select a package.'); return; }
-  if (!diy) { alert('請確認已閱讀 DIY 工作坊告知。\nPlease acknowledge the DIY workshop notice.'); return; }
+  const needsDiy = regData.packageAmount === '2000' || (regData.packageAmount === '1888' && regData.addonDiy);
+  if (needsDiy && !document.getElementById('r-diy').checked) {
+    alert('請確認已閱讀體驗告知。');
+    return;
+  }
   regGoStep(2);
 });
 
@@ -1703,6 +1952,22 @@ document.getElementById('step2-next').addEventListener('click', () => {
     const diySelected = [...document.querySelectorAll('#diy-slots .check-item.selected')].map(el => el.dataset.val);
     if (diySelected.length !== 2) { alert('請選擇 2 個 DIY 時段。\nPlease select 2 DIY time slots.'); return; }
     regData.diySlots = diySelected.join('、');
+    if (!regData.tourSlot) { alert('請選擇走讀時段。'); return; }
+  }
+  if (regData.packageAmount === '1888') {
+    if (regData.addonTour && !regData.tourSlot) { alert('請選擇走讀時段。'); return; }
+    if (regData.addonDiy) {
+      const diy1888Selected = [...document.querySelectorAll('#diy-slots-1888 .check-item.selected')].map(el => el.dataset.val);
+      if (diy1888Selected.length !== 2) { alert('請選擇 2 個 DIY 時段。\nPlease select 2 DIY time slots.'); return; }
+      regData.diySlots = diy1888Selected.join('、');
+    }
+  }
+  // 合作單位資格驗證
+  if (regData.partnerQual) {
+    const unit = document.getElementById('pq-unit').value.trim();
+    if (!unit) { alert('請填入隸屬單位名稱。'); return; }
+    regData.partnerUnit = unit;
+    regData.presidentName = document.getElementById('pq-president').value.trim();
   }
   if (!hc)    { alert('請選擇報名人數。\nPlease select the number of attendees.'); return; }
   if (hc === '1' && !regData.seating) { alert('請選擇座位社交偏好。\nPlease select a seating preference.'); return; }
@@ -1711,8 +1976,15 @@ document.getElementById('step2-next').addEventListener('click', () => {
     if (!regData.seating) { alert('請選擇座位社交偏好。\nPlease select a seating preference.'); return; }
   }
   if (hc === '10') {
-    for (let i = 2; i <= 10; i++) {
-      if (!document.getElementById('r-friend' + i).value.trim()) { alert(`請填入朋友 ${i} 的姓名。\nPlease enter companion ${i}'s name.`); return; }
+    if (regData.partnerQual && !regData.groupSeatingMode) { alert('請選擇座位安排方式。'); return; }
+    if (regData.groupSeatingMode === '分開入席') {
+      for (let i = 2; i <= 10; i++) {
+        if (!document.getElementById('r-split-name' + i).value.trim()) { alert(`請填入朋友 ${i} 的姓名。`); return; }
+      }
+    } else {
+      for (let i = 2; i <= 10; i++) {
+        if (!document.getElementById('r-friend' + i).value.trim()) { alert(`請填入朋友 ${i} 的姓名。\nPlease enter companion ${i}'s name.`); return; }
+      }
     }
   }
   if (!transfer || transfer.length !== 5 || isNaN(transfer)) { alert('請填入匯款末五碼（5位數字）。\nLast 5 digits of transfer required.'); return; }
@@ -1724,9 +1996,20 @@ document.getElementById('step2-next').addEventListener('click', () => {
   if (hc === '2') {
     regData.companions = document.getElementById('r-friend1').value.trim();
   } else if (hc === '10') {
-    const names = [];
-    for (let i = 2; i <= 10; i++) names.push(document.getElementById('r-friend' + i).value.trim());
-    regData.companions = names.join('、');
+    if (regData.groupSeatingMode === '分開入席') {
+      const parts = [];
+      for (let i = 2; i <= 10; i++) {
+        const n = document.getElementById('r-split-name' + i).value.trim();
+        const seatPill = document.querySelector('#group-companions-split .split-seat-group[data-friend="' + i + '"] .split-seat.selected');
+        const seat = seatPill ? seatPill.dataset.val : '';
+        parts.push(n + (seat ? '(' + seat + ')' : ''));
+      }
+      regData.companions = parts.join('、');
+    } else {
+      const names = [];
+      for (let i = 2; i <= 10; i++) names.push(document.getElementById('r-friend' + i).value.trim());
+      regData.companions = names.join('、');
+    }
   } else {
     regData.companions = '';
   }
@@ -1753,7 +2036,7 @@ document.getElementById('step3-submit').addEventListener('click', () => {
     .then(r => r.json())
     .then(data => {
       const hcNum = parseInt(regData.headcount || '1');
-      if (data.count + hcNum > 280) {
+      if (data.count + hcNum > 270) {
         regData.overLimit = true;
       }
       submitRegForm(btn);
@@ -1785,11 +2068,18 @@ function submitRegForm(btn) {
     dietary:       regData.dietary || '',
     address:       regData.address || '',
     diySlots:      regData.diySlots || '',
-    howHeard:      regData.howHeard,
+    addons:          [regData.addonTour && '走讀+300', regData.addonDiy && '魚丸DIY+500'].filter(Boolean).join('、') || '',
+    tourSlot:        regData.tourSlot || '',
+    partnerQual:     regData.partnerQual || '',
+    partnerUnit:     regData.partnerUnit || '',
+    presidentName:   regData.presidentName || '',
+    taxId:           document.getElementById('r-tax-id').value.trim(),
+    groupSeatingMode:regData.groupSeatingMode || '',
+    howHeard:        regData.howHeard,
     excitement:    regData.excitement || '',
     prevExp:       regData.prevExp || '',
     transport:     regData.transport || '',
-    overLimit:     regData.overLimit ? '⚠️壓線需退款' : '正常'
+    overLimit:     regData.overLimit ? '⚠️壓線報名' : '正常'
   }).forEach(([k, v]) => payload.append(k, v));
 
   const finish = () => {
@@ -1918,7 +2208,7 @@ function checkRegQuota() {
   fetch(APPS_SCRIPT_URL)
     .then(r => r.json())
     .then(data => {
-      if (data.count >= 280) {
+      if (data.count >= 270) {
         document.getElementById('reg-full').style.display = 'block';
         document.getElementById('reg-form-wrap').style.display = 'none';
         const bar = document.querySelector('.reg-step-bar');
