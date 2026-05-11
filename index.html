@@ -1042,6 +1042,44 @@
           </div>
 
           <div class="reg-field">
+            <label><a href="https://pse.is/934n2x" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">蘇澳海派生活SUP</a> <span style="font-size:13px;font-weight:400;color:rgba(245,237,214,.5);">加購選填</span></label>
+            <div style="margin-bottom:12px;font-size:13px;color:rgba(245,237,214,.55);line-height:1.7;">NT$1,350 / 人，時長 3 小時。預先調查，成團才收費，不列入本次付款金額。</div>
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;">
+              <input type="checkbox" id="addon-sup" style="accent-color:#e86d2d;width:16px;height:16px;"> 加購 $1,350 蘇澳海派生活SUP（時長3小時）
+            </label>
+            <div id="sup-slot-field" style="display:none;margin-top:14px;">
+              <label>SUP 時段選擇 * <span style="font-size:12px;color:rgba(245,237,214,.45);">三選一</span></label>
+              <div class="radio-row" id="sup-slot-row">
+                <div class="radio-pill" data-val="日出團 4:00 集合">日出團 4:00</div>
+                <div class="radio-pill" data-val="上午團 8:30 集合">上午團 8:30</div>
+                <div class="radio-pill" data-val="下午團 13:30 集合">下午團 13:30</div>
+              </div>
+              <div style="margin-top:14px;">
+                <label>SUP 日期選擇 * <span style="font-size:12px;color:rgba(245,237,214,.45);">選 2 天</span></label>
+                <div class="cond-note">依人數安排其中一天，確定成團會再行通知付款。</div>
+                <div class="check-grid" id="sup-date-grid">
+                  <div class="check-item" data-val="6/6"><input type="checkbox"> 6/6</div>
+                  <div class="check-item" data-val="6/7"><input type="checkbox"> 6/7</div>
+                  <div class="check-item" data-val="6/8"><input type="checkbox"> 6/8</div>
+                  <div class="check-item" data-val="6/9"><input type="checkbox"> 6/9</div>
+                  <div class="check-item" data-val="6/10"><input type="checkbox"> 6/10</div>
+                  <div class="check-item" data-val="6/11"><input type="checkbox"> 6/11</div>
+                  <div class="check-item" data-val="6/12"><input type="checkbox"> 6/12</div>
+                  <div class="check-item" data-val="6/13"><input type="checkbox"> 6/13</div>
+                  <div class="check-item" data-val="6/14"><input type="checkbox"> 6/14</div>
+                  <div class="check-item" data-val="6/15"><input type="checkbox"> 6/15</div>
+                  <div class="check-item" data-val="6/16"><input type="checkbox"> 6/16</div>
+                  <div class="check-item" data-val="6/17"><input type="checkbox"> 6/17</div>
+                  <div class="check-item" data-val="6/18"><input type="checkbox"> 6/18</div>
+                  <div class="check-item" data-val="6/19"><input type="checkbox"> 6/19</div>
+                  <div class="check-item" data-val="6/20"><input type="checkbox"> 6/20</div>
+                  <div class="check-item" data-val="6/21"><input type="checkbox"> 6/21</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reg-field">
             <label>輸入人數 NUMBER OF ATTENDEES *</label>
             <input type="text" class="reg-input" id="r-headcount" placeholder="請輸入阿拉伯數字，例：3" inputmode="numeric" pattern="[0-9]*" maxlength="4">
           </div>
@@ -1051,28 +1089,26 @@
             <div id="all-names-inputs"></div>
           </div>
 
-          <div class="reg-field" id="receipt-field" style="display:none;">
-            <div id="receipt-single-wrap" style="display:none;">
-              <label>是否開立統編？TAX ID?</label>
-              <div class="radio-row" id="receipt-single-row">
-                <div class="radio-pill" data-val="是">是</div>
-                <div class="radio-pill" data-val="否">否</div>
-              </div>
-              <div id="tax-id-single-field" style="display:none;margin-top:12px;">
-                <label>請輸入統一編號</label>
-                <input type="text" class="reg-input" id="r-tax-id" placeholder="統一編號" style="margin-top:8px;" maxlength="8" inputmode="numeric">
-              </div>
+          <div class="reg-field">
+            <label>座位偏好 SEATING PREFERENCE *</label>
+            <div class="radio-row" id="seating-row">
+              <div class="radio-pill" data-val="內向">內向</div>
+              <div class="radio-pill" data-val="外向">外向</div>
+              <div class="radio-pill" data-val="隨緣">隨緣</div>
             </div>
+          </div>
+
+          <div class="reg-field" id="receipt-field" style="display:none;">
             <div id="receipt-multi-wrap" style="display:none;">
               <label>收據是否分開開立？SEPARATE RECEIPTS?</label>
               <div class="radio-row" id="receipt-multi-row">
                 <div class="radio-pill" data-val="是">是</div>
                 <div class="radio-pill" data-val="否">否</div>
               </div>
-              <div id="tax-id-multi-field" style="display:none;margin-top:12px;">
-                <label>統一編號（選填）</label>
-                <input type="text" class="reg-input" id="r-tax-id-multi" placeholder="統一編號" style="margin-top:8px;" maxlength="8" inputmode="numeric">
-              </div>
+            </div>
+            <div style="margin-top:16px;">
+              <label>統一編號（選填）TAX ID</label>
+              <input type="text" class="reg-input" id="r-tax-id" placeholder="統一編號" style="margin-top:8px;" maxlength="8" inputmode="numeric">
             </div>
           </div>
 
@@ -1710,7 +1746,6 @@ function updateNamesField(n) {
   const container    = document.getElementById('all-names-inputs');
   const field        = document.getElementById('all-names-field');
   const receiptField = document.getElementById('receipt-field');
-  const singleWrap   = document.getElementById('receipt-single-wrap');
   const multiWrap    = document.getElementById('receipt-multi-wrap');
   container.innerHTML = '';
   if (n > 0) {
@@ -1725,13 +1760,7 @@ function updateNamesField(n) {
       container.appendChild(inp);
     }
     receiptField.style.display = '';
-    if (n === 1) {
-      singleWrap.style.display = '';
-      multiWrap.style.display  = 'none';
-    } else {
-      singleWrap.style.display = 'none';
-      multiWrap.style.display  = '';
-    }
+    multiWrap.style.display = n > 1 ? '' : 'none';
   } else {
     field.style.display        = 'none';
     receiptField.style.display = 'none';
@@ -1755,20 +1784,37 @@ function initPills(containerId, key) {
     });
   });
 }
-initPills('prev-exp-row',      'prevExp');
-initPills('transport-row',     'transport');
-initPills('receipt-single-row','receiptSingle');
-initPills('receipt-multi-row', 'receipt');
+initPills('seating-row',      'seating');
+initPills('prev-exp-row',     'prevExp');
+initPills('transport-row',    'transport');
+initPills('receipt-multi-row','receipt');
+initPills('sup-slot-row',     'supSlot');
 
-document.querySelectorAll('#receipt-single-row .radio-pill').forEach(pill => {
-  pill.addEventListener('click', () => {
-    document.getElementById('tax-id-single-field').style.display = pill.dataset.val === '是' ? '' : 'none';
-  });
+document.getElementById('addon-sup').addEventListener('change', function() {
+  regData.addonSup = this.checked;
+  document.getElementById('sup-slot-field').style.display = this.checked ? '' : 'none';
+  if (!this.checked) {
+    regData.supSlot  = '';
+    regData.supDates = [];
+    document.querySelectorAll('#sup-slot-row .radio-pill').forEach(p => p.classList.remove('selected'));
+    document.querySelectorAll('#sup-date-grid .check-item').forEach(i => {
+      i.classList.remove('selected');
+      i.querySelector('input').checked = false;
+    });
+  }
 });
 
-document.querySelectorAll('#receipt-multi-row .radio-pill').forEach(pill => {
-  pill.addEventListener('click', () => {
-    document.getElementById('tax-id-multi-field').style.display = pill.dataset.val === '否' ? '' : 'none';
+document.querySelectorAll('#sup-date-grid .check-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const selected = document.querySelectorAll('#sup-date-grid .check-item.selected');
+    if (item.classList.contains('selected')) {
+      item.classList.remove('selected');
+      item.querySelector('input').checked = false;
+    } else {
+      if (selected.length >= 2) { alert('最多選擇 2 天。'); return; }
+      item.classList.add('selected');
+      item.querySelector('input').checked = true;
+    }
   });
 });
 
@@ -1824,12 +1870,19 @@ document.getElementById('step1-next').addEventListener('click', () => {
   }
   const hcVal = document.getElementById('r-headcount').value.trim();
   const hcNum = parseInt(hcVal) || 0;
+  if (regData.addonSup) {
+    if (!regData.supSlot) { alert('請選擇 SUP 時段。'); return; }
+    const supDatesSelected = [...document.querySelectorAll('#sup-date-grid .check-item.selected')].map(el => el.dataset.val);
+    if (supDatesSelected.length !== 2) { alert('請選擇 2 個 SUP 日期。'); return; }
+    regData.supDates = supDatesSelected;
+  }
   if (!hcVal || hcNum < 1) { alert('請輸入有效的報名人數（阿拉伯數字）。'); return; }
   for (let i = 1; i <= hcNum; i++) {
     const nameEl = document.getElementById('r-person-' + i);
     if (!nameEl || !nameEl.value.trim()) { alert('請填入第 ' + i + ' 位的姓名。'); return; }
   }
   const transfer = document.getElementById('r-transfer').value.trim();
+  if (!regData.seating) { alert('請選擇座位偏好。'); return; }
   if (!transfer || transfer.length !== 5 || isNaN(transfer)) { alert('請填入匯款末五碼（5位數字）。'); return; }
 
   regData.name      = name;
@@ -1845,9 +1898,7 @@ document.getElementById('step1-next').addEventListener('click', () => {
   }
   regData.allNames   = allNames.join('、');
   regData.companions = hcNum > 1 ? allNames.slice(1).join('、') : '';
-  const taxIdSingle = document.getElementById('r-tax-id') ? document.getElementById('r-tax-id').value.trim() : '';
-  const taxIdMulti  = document.getElementById('r-tax-id-multi') ? document.getElementById('r-tax-id-multi').value.trim() : '';
-  regData.taxId = taxIdSingle || taxIdMulti;
+  regData.taxId = document.getElementById('r-tax-id').value.trim();
 
   regGoStep(2);
 });
@@ -1894,13 +1945,16 @@ function submitRegForm(btn) {
     name:          regData.name,
     phone:         regData.phone,
     companions:    regData.allNames || '',
+    seating:       regData.seating || '',
     receipt:       regData.receipt || regData.receiptSingle || '',
     paymentAmount: 'NT$' + (regData.paymentTotal || regData.packageAmount),
     transfer:      regData.transfer,
     dietary:       regData.dietary || '',
     address:       regData.address || '',
     diySlots:      regData.diySlots || '',
-    addons:        [regData.addonTour && '走讀+300', regData.addonDiy && '魚丸DIY+500'].filter(Boolean).join('、') || '',
+    addons:        [regData.addonTour && '走讀+300', regData.addonDiy && '魚丸DIY+500', regData.addonSup && 'SUP+1350（預調）'].filter(Boolean).join('、') || '',
+    supSlot:       regData.supSlot || '',
+    supDates:      regData.supDates ? regData.supDates.join('、') : '',
     tourSlot:      regData.tourSlot || '',
     partnerQual:   regData.partnerQual || '',
     partnerUnit:   regData.partnerUnit || '',
