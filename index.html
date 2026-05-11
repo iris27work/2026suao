@@ -1069,6 +1069,10 @@
                 <div class="radio-pill" data-val="是">是</div>
                 <div class="radio-pill" data-val="否">否</div>
               </div>
+              <div id="tax-id-multi-field" style="display:none;margin-top:12px;">
+                <label>統一編號（選填）</label>
+                <input type="text" class="reg-input" id="r-tax-id-multi" placeholder="統一編號" style="margin-top:8px;" maxlength="8" inputmode="numeric">
+              </div>
             </div>
           </div>
 
@@ -1762,6 +1766,12 @@ document.querySelectorAll('#receipt-single-row .radio-pill').forEach(pill => {
   });
 });
 
+document.querySelectorAll('#receipt-multi-row .radio-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.getElementById('tax-id-multi-field').style.display = pill.dataset.val === '否' ? '' : 'none';
+  });
+});
+
 // Rating buttons
 document.querySelectorAll('#rating-row .rating-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1835,7 +1845,9 @@ document.getElementById('step1-next').addEventListener('click', () => {
   }
   regData.allNames   = allNames.join('、');
   regData.companions = hcNum > 1 ? allNames.slice(1).join('、') : '';
-  regData.taxId      = document.getElementById('r-tax-id') ? document.getElementById('r-tax-id').value.trim() : '';
+  const taxIdSingle = document.getElementById('r-tax-id') ? document.getElementById('r-tax-id').value.trim() : '';
+  const taxIdMulti  = document.getElementById('r-tax-id-multi') ? document.getElementById('r-tax-id-multi').value.trim() : '';
+  regData.taxId = taxIdSingle || taxIdMulti;
 
   regGoStep(2);
 });
