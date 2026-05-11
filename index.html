@@ -1769,6 +1769,7 @@ function updateNamesField(n) {
 
 document.getElementById('r-headcount').addEventListener('input', function() {
   this.value = this.value.replace(/[^0-9]/g, '');
+  if (parseInt(this.value) > 100) this.value = '100';
   regData.headcount = this.value;
   updateNamesField(parseInt(this.value) || 0);
   updateAmount();
