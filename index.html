@@ -1876,7 +1876,7 @@ document.getElementById('step1-next').addEventListener('click', () => {
     if (supDatesSelected.length !== 2) { alert('請選擇 2 個 SUP 日期。'); return; }
     regData.supDates = supDatesSelected;
   }
-  if (!hcVal || hcNum < 1) { alert('請輸入有效的報名人數（阿拉伯數字）。'); return; }
+  if (!hcVal || hcNum < 1 || hcNum > 100) { alert('請輸入有效的報名人數（1–100 人）。'); return; }
   for (let i = 1; i <= hcNum; i++) {
     const nameEl = document.getElementById('r-person-' + i);
     if (!nameEl || !nameEl.value.trim()) { alert('請填入第 ' + i + ' 位的姓名。'); return; }
